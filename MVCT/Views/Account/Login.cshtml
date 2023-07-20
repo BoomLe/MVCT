@@ -27,7 +27,7 @@
             
 
                 <!-- User Name -->
-                <div class="form-item" id="form-item-username" onclick="highlightInput(this)">
+                <div class="form-item" id="form-item-username" placeholder="Email or User..." onclick="highlightInput(this)">
                     <i class="fa-solid fa-user"></i>
                     <input asp-for="UserNameOrEmail" id="userName" style="border: none !important;outline: none !important;" />
                     @*<input type="text" id="userName" placeholder="E-mail address" name="uname">*@
@@ -35,12 +35,29 @@
 
 
                 <!-- Password -->
-                <div class="form-item" id="form-item-password" onclick="highlightInput(this)">
+                <div class="form-item" id="form-item-password" placeholder="Password..." onclick="highlightInput(this)">
                     <i class="fa-solid fa-lock"></i>
                     <input asp-for="Password" id="passWord"  />
                     @*<input type="password" id="passWord" placeholder="Password" name="psw">*@
                 </div>
 
+
+                <dnt-captcha asp-captcha-generator-max="999999"
+                             asp-captcha-generator-min="111111"
+                             asp-captcha-generator-language="English"
+                             asp-captcha-generator-display-mode="ShowDigits"
+                             asp-use-relative-urls="true"
+                             asp-placeholder="Enter Security code"
+                             asp-validation-error-message="Please enter the security code."
+                             asp-font-name="Tahoma"
+                             asp-font-size="20"
+                             asp-fore-color="#333333"
+                             asp-back-color="#ccc"
+                             asp-text-box-class="text-box form-control"
+                             asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
+                             asp-validation-message-class="text-danger"
+                             asp-refresh-button-class="fas fa-redo btn-sm"
+                             asp-use-noise="false" />
 
                 <button class="bt-submit" type="submit" onclick="login(event)">Login</button>
 

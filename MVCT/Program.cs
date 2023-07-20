@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVCT.Data;
 using MVCT.Services;
+using DNTCaptcha.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("VYKHOI");
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
@@ -21,6 +22,13 @@ builder.Services.AddDistributedMemoryCache();  // Đăng ký dịch vụ lưu ca
 builder.Services.AddSession(cfg => {           // Đăng ký dịch vụ Session
     cfg.Cookie.Name = "Hoangtuan";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
     cfg.IdleTimeout = new TimeSpan(0, 30, 0);   // Thời gian tồn tại của Session
+});
+
+builder.Services.AddDNTCaptcha(options =>
+{
+    options.UseCookieStorageProvider()
+    .ShowThousandsSeparators(false);
+    options.WithEncryptionKey("sadsadasdsadsadsa");
 });
 
 
