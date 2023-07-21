@@ -14,9 +14,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
 builder.Services.AddDistributedMemoryCache();  // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
 builder.Services.AddSession(cfg => {           // Đăng ký dịch vụ Session
@@ -71,7 +75,7 @@ builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
-
+//DI
 
 var app = builder.Build();
 

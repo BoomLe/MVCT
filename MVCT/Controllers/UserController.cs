@@ -21,7 +21,8 @@ using MVCT.Models.User;
 
 namespace MVCT.Controllers
 {
-    [Authorize(Roles = RoleName.Administrator)]
+    //[Authorize(Roles = RoleName.Administrator)]
+    [Authorize]
 
     [Authorize]
     [Route("/ManageUser/[action]")]
