@@ -1,0 +1,12 @@
+﻿<div class="text-center">
+    <h1>Check In đi  babe ơi</h1>
+    <form id="checkinForm" asp-action="CheckInForUser" method="post">
+        <div class="form-group">
+            <label for="selectedDate">Ngày check-in:</label>
+            <input type="date" id="selectedDate" name="dateCheckIn" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Check In</button>
+    </form>
+
+</div>

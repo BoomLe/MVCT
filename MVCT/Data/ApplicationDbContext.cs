@@ -22,5 +22,7 @@ namespace MVCT.Data
         {
             base.OnConfiguring(builder);
         }
+
+        public DbSet<Timesheets> Timesheets { get; set; }
     }
 }

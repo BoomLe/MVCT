@@ -197,3 +197,42 @@ span.psw {
 /* .item-alert{
   display: block;
 } */
+
+
+
+.box-main {
+    background-color: #8ffffc;
+    position: relative;
+    left:0;
+}
+.box-list-timesheets {
+    margin-top: 10px;
+    background-color: #75ffb4;
+}
+.form-timesheets{
+    text-align: left;
+}
+
+.select-date-TimeKeeping{
+  /*  background-color: red;*/
+}
+
+.select-date-TimeKeeping-btn {
+    width: 5%;
+    padding: 0;
+
+}
+/*toggle hightlingt accept check out*/
+.acpect {
+    background-color: greenyellow !important;
+    color: black !important;
+}
+.line-user-chetout {
+    background-color: teal;
+    font-size: 1.3vw;
+    color: white;
+}
+.accept-checkout {
+    padding: 6px;
+    width: 75%;
+}

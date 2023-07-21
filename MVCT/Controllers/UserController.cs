@@ -21,7 +21,8 @@ using MVCT.Models.User;
 
 namespace MVCT.Controllers
 {
-    [Authorize(Roles = RoleName.Administrator)]
+    // chỉ cho admin truy cập 
+    //[Authorize(Roles = RoleName.Administrator)]
 
     [Authorize]
     [Route("/ManageUser/[action]")]
@@ -334,5 +335,34 @@ namespace MVCT.Controllers
                                              select c).ToListAsync();
 
         }
+
+
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            // Thực hiện logic xóa người dùng với ID tương ứng
+            // ...
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index"); // Hoặc thực hiện các xử lý khác sau khi xóa thành công
+            }
+            else
+            {
+                // Xử lý lỗi nếu không thể xóa người dùng
+                // ...
+                return View("Error");
+            }
+            //return Content("<h1> đã vào  </h1>");
+        }
+
     }
 }

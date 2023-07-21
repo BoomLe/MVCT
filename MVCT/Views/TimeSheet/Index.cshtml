@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+// dang làm
+@model MVCT.DTO.TimeSheetsDTO // Thay thế YourModelNamespace và YourViewModel bằng namespace và tên ViewModel tương ứng của bạn
+@*@using MVCT.Models*@
+
+
+<div class="text-center">
+    @* @{
+    if (Model != null)
+    {
+    <h1>Thông tin thời gian làm việc</h1>
+    <p>Giờ làm: @Model.TimeWork</p>
+    <p>Nội dung công việc: @Model.WorkingContent</p>
+    <p>Ngày tạo: @Model.CreatedDate.ToShortDateString()</p>
+    }
+    else
+    {
+    <p>Không có thông tin thời gian làm việc để hiển thị.</p>
+    }
+    }*@
+
+
+    <h1>Danh sách Timesheets (user báo cáo công việc )</h1>
+
+    <form asp-action="checkInTimeSheet" method="post" class="form-timesheets">
+        <!-- Input chọn ngày -->
+        <div class="form-group">
+            <label for="SelectedDate">Chọn ngày:</label>
+            <input type="date" class="form-control" id="SelectedDate" name="CreatedDate" readonly value="@Model.CreatedDate.ToString("yyyy-MM-dd")" />
+        </div>
+
+        <!-- Ô input nhập giờ làm -->
+        <div class="form-group">
+            <label for="TimeWork">Giờ làm:</label>
+            <input type="number" class="form-control" id="TimeWork" name="TimeWork" value="@Model.TimeWork" />
+        </div>
+
+        <!-- Ô input nhập nội dung công việc -->
+        <div class="form-group">
+            <label for="WorkingContent">Nội dung công việc:</label>
+            <textarea class="form-control" id="WorkingContent" name="WorkingContent">@Model.WorkingContent</textarea>
+        </div>
+
+        <!-- Nút gửi -->
+        <button type="submit" class="btn btn-primary">Gửi</button>
+    </form>
+    <div class="box-list-timesheets">
+        <h1>Các Ngày Đã Chấm</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>CheckIn</th>
+
+                    <th>Giờ Đã làm</th>
+                    <th>WorkingContent</th>
+                    <th>Trạng Thái Duyệt</th>
+                    <th>Ngày</th>
+              
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Hiển thị danh sách timekeepings -->
+                @if (ViewBag.Timekeepings != null)
+                {
+                    foreach (var timekeeping in ViewBag.Timekeepings)
+                    {
+                        <tr style="@(timekeeping.CreatedDate.Date == DateTime.Now.Date ? "background-color: yellow;" : "")">
+                            <td>@timekeeping.Id</td>
+                            <td>@(timekeeping.CheckIn ? "Đã Check in" : "Chưa Check in")</td>
+                            <td>@timekeeping.TimeWork</td>
+                            <td>@timekeeping.WorkingContent</td>
+                            <td>@timekeeping.State</td>
+                            <td>@timekeeping.CreatedDate.ToShortDateString()</td>
+                         
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @*niếu có lỗi thì nó sẽ hiển thị ở đây*@
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+   
+</div>

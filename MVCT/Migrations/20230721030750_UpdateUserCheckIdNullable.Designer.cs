@@ -3,6 +3,7 @@ using System;
 using MVCT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCT.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230721030750_UpdateUserCheckIdNullable")]
+    partial class UpdateUserCheckIdNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,16 +99,14 @@ namespace MVCT.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool?>("CheckIn")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("State")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("TimeWork")
+                    b.Property<int>("TimeWork")
                         .HasColumnType("int");
 
                     b.Property<string>("UserCheckId")
@@ -116,6 +117,7 @@ namespace MVCT.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("WorkingContent")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

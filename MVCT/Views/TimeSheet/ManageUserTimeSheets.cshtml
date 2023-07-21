@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Quản lý chấm công cho các user";
+}
+@model MVCT.DTO.TimeSheetsDTO;
+
+<div class="text-center">
+    <h5>Chào mừng đến với bảng chấm công cho nhân viên  ( người chấm công )</h5>
+
+    <form class="select-date-TimeKeeping" id="dateForm" asp-action="GetUsersTimeKeeping" method="post">
+        <label for="selectedDate">Chọn ngày:</label>
+        <input type="date" style="padding: 5px" id="selectedDate" name="selectedDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+
+
+        <button type="submit" class="btn btn-primary select-date-TimeKeeping-btn">Gửi</button>
+    </form>
+
+    @*// hiển thị danh sách user checkin trong ngay*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Người Dùng</th>
+                <th>CheckIn</th>
+
+                <th>Giờ Đã làm</th>
+                <th>WorkingContent</th>
+                <th>Trạng Thái Duyệt</th>
+                <th>Ngày</th>
+                <th>Duyệt</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Hiển thị danh sách timekeepings -->
+            @if (ViewBag.listUsersCheckIn != null)
+            {
+                foreach (var timekeeping in ViewBag.listUsersCheckIn)
+                {
+                    <tr id="@timekeeping.Id" class="line-user-chetout">
+                        <td>@timekeeping.UserName</td>
+                        <td>@(timekeeping.CheckIn ? "Đã Check in" : "Chưa Check in")</td>
+                        <td>@timekeeping.TimeWork</td>
+                        <td>@timekeeping.WorkingContent</td>
+                        <td>@timekeeping.State</td>
+                        <td>@timekeeping.CreatedDate.ToShortDateString()</td>
+                        <td><button class="accept-checkout" onclick="hightLight(@timekeeping.Id)">OKe em</button></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <button onclick="saveListAcceptCheckout()">Oke Lưu Luôn</button>
+
+    @*// check date selected*@
+    @if (TempData.ContainsKey("SelectedDate") && TempData["SelectedDate"] is DateTime selectedDate)
+    {
+        <p>Ngày đã chọn: @selectedDate.ToString("dd/MM/yyyy")</p>
+    }
+</div>
+
