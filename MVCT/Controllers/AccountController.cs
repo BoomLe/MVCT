@@ -673,7 +673,9 @@ namespace MVCT.Controllers
             }
         }
 
-        [Route("/khongduoctruycap.html")]
+        [Route("/Account/AccessDenied")]
+
+
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {

@@ -56,7 +56,7 @@
                              asp-text-box-class="text-box form-control"
                              asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
                              asp-validation-message-class="text-danger"
-                             asp-refresh-button-class="fas fa-redo btn-sm"
+                             asp-refresh-button-class="fe-icon-repeat "
                              asp-use-noise="false" />
 
                 <button class="bt-submit" type="submit" onclick="login(event)">Login</button>
@@ -77,5 +77,6 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.unobtrusive-ajax.min.js"></script>
     }
 }

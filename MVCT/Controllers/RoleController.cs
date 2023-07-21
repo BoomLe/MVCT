@@ -175,7 +175,7 @@ namespace MVCT.Controllers
 
             if (result.Succeeded)
             {
-                StatusMessage = $"Bạn vừa đổi tên: {model.Name}";
+                //StatusMessage = $"Bạn vừa đổi tên: {model.Name}";
                 return RedirectToAction(nameof(Index));
             }
             else

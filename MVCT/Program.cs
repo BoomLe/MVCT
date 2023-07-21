@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using MVCT.Data;
 using MVCT.Services;
 using DNTCaptcha.Core;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Options;
+using MVCT.Models.Attandance;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,18 +18,31 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-//builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-
-
 builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-builder.Services.AddDistributedMemoryCache();  // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
-builder.Services.AddSession(cfg => {           // Đăng ký dịch vụ Session
-    cfg.Cookie.Name = "Hoangtuan";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
-    cfg.IdleTimeout = new TimeSpan(0, 30, 0);   // Thời gian tồn tại của Session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromHours(10);
+        options.LoginPath = "/login/";
+        options.LogoutPath = "/logout/";
+        options.AccessDeniedPath = "/AccessDenied";
+    });
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/login/";
+    options.LogoutPath = "/logout/";
+    //options.AccessDeniedPath = "/AccessDenied";
 });
 
 builder.Services.AddDNTCaptcha(options =>
@@ -64,18 +81,15 @@ builder.Services.Configure<IdentityOptions>(options => {
 });
 
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/login/";
-    options.LogoutPath = "/logout/";
-    options.AccessDeniedPath = "/khong-duoc-truy-cap.html";
-});
+
+
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
-//DI
+
 
 var app = builder.Build();
 
@@ -87,25 +101,19 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
 app.UseCookiePolicy();
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseSession();
-
 app.UseAuthentication();
+app.UseRouting();
 
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",
 pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-//app.MapAreaControllerRoute(
-//    name: "identidy",
-//    pattern: "{controller}/{action=Index}/{id?}",
-//    areaName: "Identity"
-//);
-app.MapRazorPages();
 app.Run();

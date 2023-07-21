@@ -1,0 +1,61 @@
+﻿@using MVCT.Models.Attandance;
+@model IEnumerable<Attandances>
+@inject SignInManager<IdentityUser> SignInManager
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Checkins</h1>
+
+<p>
+    <a asp-action="CheckinUser" asp-controller="Attandances">
+        Check-In
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+              Id
+            </th>
+            <th>
+                UserName
+            </th>
+            <th>
+                DateTime
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                   @item.User.UserName
+                </td>
+                <td>
+                    @item.DataTime
+                </td>
+                <td></td>
+              @*  <td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                    }
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    }
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
