@@ -3,6 +3,7 @@ using System;
 using MVCT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCT.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230724081148_addTimeCheckOut")]
+    partial class addTimeCheckOut
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,8 +111,8 @@ namespace MVCT.Migrations
                     b.Property<DateTime?>("TimeCheckout")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("TimeWork")
-                        .HasColumnType("longtext");
+                    b.Property<int?>("TimeWork")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserCheckId")
                         .HasColumnType("longtext");

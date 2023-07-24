@@ -13,12 +13,14 @@ namespace MVCT.Models
 
         public string? UserCheckId { get; set; }
 
-        public int? TimeWork { get; set; }
+        public string? TimeWork { get; set; }
 
         public string? WorkingContent { get; set; }
 
         public string? State { get; set; } = "No"; // duyệt chưa
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public DateTime? TimeCheckout { get; set; }
 
         public bool? CheckIn { get ; set; } = false;
     }

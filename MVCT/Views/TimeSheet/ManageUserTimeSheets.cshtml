@@ -28,8 +28,12 @@
                 <th>Giờ Đã làm</th>
                 <th>WorkingContent</th>
                 <th>Trạng Thái Duyệt</th>
-                <th>Ngày</th>
+                <th>Giờ Check In</th>
+                <th>Giờ Check Out</th>
+
                 <th>Duyệt</th>
+                <th>Chỉnh sửa</th>
+
             </tr>
         </thead>
         <tbody>
@@ -44,18 +48,32 @@
                         <td>@timekeeping.TimeWork</td>
                         <td>@timekeeping.WorkingContent</td>
                         <td>@timekeeping.State</td>
-                        <td>@timekeeping.CreatedDate.ToShortDateString()</td>
+                        <td>@timekeeping.CreatedDate.ToString("HH:mm:ss")</td>
+                        <td>@(timekeeping.TimeCheckout != null ? timekeeping.TimeCheckout.ToString("HH:mm:ss") : "")</td>
+
+
                         <td>
                             <button class="accept-checkout" onclick="hightLight(@timekeeping.Id)">
                                 @(timekeeping.State == "Yes" ? "Bỏ duyệt" : "Duyệt")
                             </button>
                         </td>
+                        <td><i class="fa-regular fa-pen-to-square" onclick="showAlterTimeSheetBox()"></i></td>
                     </tr>
                 }
             }
         </tbody>
     </table>
+    <div id="alter-row-timesheet" class="alter-row-timesheet">
+        <div class="fade-register-box" onclick="showAlterTimeSheetBox()"></div>
+        <div class="context-fade-box">
+            <label>Giờ check in</label>
+            <input type="datetime-local" value="" id="selectedDateTime" name="dateCheckIn"  required>
+            <label>Giờ check Out</label>
+            <input type="datetime-local" value="" id="selectedDateTime" name="TimeCheckout"  required>
 
+            <button type="submit">Yo</button>
+        </div>
+    </div>
     <!-- Trong View của bạn -->
     <button onclick="saveListAcceptCheckout('@ViewBag.managerCheckOut')">Oke Lưu Luôn</button>
     @*<button onclick="saveListAcceptCheckout()">Oke Lưu Luôn</button>*@

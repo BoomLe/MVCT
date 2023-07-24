@@ -18,10 +18,12 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using MVCT.Models.Account;
 using MVCT.Utilities;
+using static SkiaSharp.HarfBuzz.SKShaper;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MVCT.Controllers
 {
-    [Authorize]
+    //[Authorize]
 
     [Route("/Account/[action]")]
     public class AccountController : Controller
@@ -63,7 +65,8 @@ namespace MVCT.Controllers
         {
             returnUrl ??= Url.Content("~/");
             ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+                if (model.UserNameOrEmail != null && model.Password != null)
             {
 
                 var result = await _signInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, lockoutOnFailure: true);
@@ -80,6 +83,8 @@ namespace MVCT.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
+                    // mới
+                    //return Json(new { data = model, isSuccess = result.Succeeded });
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -97,7 +102,11 @@ namespace MVCT.Controllers
                     ModelState.AddModelError("Không đăng nhập được.");
                     return View(model);
                 }
+
             }
+            // mới
+            //return Json(new { data = model, classofModel = model.GetType().Name, isValidform = ModelState.IsValid });
+
             return View(model);
         }
 
@@ -123,14 +132,23 @@ namespace MVCT.Controllers
         }
         //
         // POST: /Account/Register
-        [HttpPost]
+        //[HttpPost("/register-acount/")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model,string returnUrl)
         {
-            returnUrl ??= Url.Content("~/");
-            ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            //return Json(new { Success = true, Message = "Gửi dữ liệu thành công!" });
+            ////
+            //return Json(new { Success = true, Message = "có vào", Data = model });
+
+            //return RedirectToAction("Login");
+
+            
+            //model.returnUrl ??= Url.Content("~/");
+            //ViewData["ReturnUrl"] = model.returnUrl;
+            // mới thêm
+            //if (ModelState.IsValid)
+            if (model.UserName != null && model.Password != null && model.ConfirmPassword != null && model.Email != null)
             {
                 var user = new AppUser { UserName = model.UserName, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -168,7 +186,7 @@ namespace MVCT.Controllers
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return LocalRedirect(model.returnUrl);
                     }
 
                 }
@@ -177,6 +195,7 @@ namespace MVCT.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            //return Json(new { Success = false, Message = "có vào", Data = model });
             return View(model);
         }
 

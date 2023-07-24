@@ -100,6 +100,9 @@ function generatePDF() {
  
 }
 
+function hello() {
+    console.log("hello");
+}
 
 // lưu danh sách accpet checkout để đẩy xuống back end 
 var highlightedCheckout = [];
@@ -120,6 +123,43 @@ function hightLight(id) {
     }
 }
 
+function register(returnUrl) {
+    console.log("có vào")
+    let us = document.getElementById("registerModel_UserName").value
+    let email = document.getElementById("registerModel_Email").value
+    let pass = document.getElementById("registerModel_Password").value
+    let confirm = document.getElementById("registerModel_ConfirmPassword").value
+
+    console.log(us)
+    // gửi data
+
+    fetch('/register-acount/', {
+        method: 'POST', // Phương thức HTTP (POST trong trường hợp này)
+        headers: {
+            'Content-Type': 'application/json' // Định dạng dữ liệu là JSON
+        },
+        body: JSON.stringify({
+            UserName: us, // Danh sách id đã được chọn
+            Email: email,
+            Password: pass,// Ngày đã chọn,
+            ConfirmPassword: confirm,
+            returnUrl: returnUrl
+        }) // Chuyển đổi danh sách thành chuỗi JSON và gửi xuống backend
+    })
+        .then(response => response.json()) // Chuyển đổi phản hồi từ backend thành đối tượng JSON
+        .then(data => {
+            console.log("back end gửi về", data); // In phản hồi từ backend ra console để kiểm tra
+            // Có thể thực hiện các thao tác tiếp theo với dữ liệu nhận được từ backend
+            //if (data.success) {
+            //    location.reload(); // Load lại trang nếu data.Success là true
+            //}
+        })
+        .catch(error => {
+            console.error('Lỗi khi gửi dữ liệu xuống backend:', error); // Xử lý lỗi nếu có
+        });
+
+
+}
 function saveListAcceptCheckout(idMN) {
 
     let date = document.getElementById("selectedDate").value;
@@ -149,3 +189,32 @@ function saveListAcceptCheckout(idMN) {
         });
     console.log(highlightedCheckout); // In danh sách id ra console để kiểm tra
 }
+
+
+function showRegisterBox() {
+    var registerBox = document.getElementById("registerbox");
+    console.log("co vao")
+    // Toggle class "active" cho "registerbox"
+    if (registerBox.classList.contains("active-register-box")) {
+        registerBox.classList.remove("active-register-box");
+        registerBox.classList.add("no-active-register-box");
+    } else {
+        registerBox.classList.add("active-register-box");
+        registerBox.classList.remove("no-active-register-box");
+    }
+}
+
+function showAlterTimeSheetBox() {
+    var registerBox = document.getElementById("alter-row-timesheet");
+    console.log("co vao")
+    // Toggle class "active" cho "registerbox"
+    if (registerBox.classList.contains("active-register-box")) {
+        registerBox.classList.remove("active-register-box");
+        registerBox.classList.add("no-active-register-box");
+    } else {
+        registerBox.classList.add("active-register-box");
+        registerBox.classList.remove("no-active-register-box");
+    }
+}
+
+

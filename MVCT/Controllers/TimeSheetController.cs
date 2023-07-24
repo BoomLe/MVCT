@@ -66,7 +66,7 @@ namespace MVCT.Controllers
             };
             _context.Timesheets.Add(t);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return   View("Checked");
         }
 
 
@@ -83,6 +83,7 @@ namespace MVCT.Controllers
             List<Timesheets> timekeepings = await _context.Timesheets
             .Where(t => t.UserId == currentUser.Id)
             .ToListAsync();
+
 
             ViewBag.Timekeepings = timekeepings;
 
@@ -118,8 +119,37 @@ namespace MVCT.Controllers
                 }
 
                 // cập nhật lại cái phiên làm viecj ngày hôm đó
-                check.TimeWork = checkIn.TimeWork;
+              
                 check.WorkingContent = checkIn.WorkingContent;
+                check.TimeCheckout = checkIn.TimeCheckout;
+
+
+
+                // lứu số phút nó làm
+                //int totalMinutes = 0;
+                //TimeSpan? difference = check.TimeCheckout - check.CreatedDate;
+                //if (difference.HasValue)
+                //{
+                //   totalMinutes = (int)difference.Value.TotalMinutes;
+                //}
+
+
+                int totalMinutes = 0;
+                string time = "";
+                TimeSpan? difference = check.TimeCheckout - check.CreatedDate;
+                if (difference.HasValue)
+                {
+                    totalMinutes = (int)difference.Value.TotalMinutes;
+                    int hour = totalMinutes / 60;
+                    int minute = totalMinutes % 60;
+                    time =  hour + ":" + minute;
+                }
+
+
+                check.TimeWork = time;
+
+
+            
 
 
                 _context.Update(check);
@@ -139,10 +169,23 @@ namespace MVCT.Controllers
             //// Trả về chuỗi JSON trong phản hồi HTTP
             //return Content(json, "application/json");
         }
+        public string GetDistanceTwoDateTime(DateTime a, DateTime b)
+        {
+            int totalMinutes = 0;
+            TimeSpan? difference = a - b;
+            if (difference.HasValue)
+            {
+                totalMinutes = (int)difference.Value.TotalMinutes;
+                int hour = totalMinutes / 60;
+                int minute = totalMinutes % 60;
+                return hour + ":" + minute;
+            }
+
+            return "";
+        }
 
 
-
-       // lấy đám nhân viên của ngày đó để chấm công
+        // lấy đám nhân viên của ngày đó để chấm công
         public async Task<IActionResult> ManageUserTimeSheets()
         {
             DateTime selectedDate = TempData.ContainsKey("SelectedDate") && TempData["SelectedDate"] is DateTime tempDate
@@ -183,9 +226,9 @@ namespace MVCT.Controllers
                                 CheckIn = (bool)t.CheckIn,
                                 WorkingContent = t.WorkingContent,
                                 CreatedDate = t.CreatedDate,
-                                TimeWork = (int)t.TimeWork,
-                                State = t.State
-                                
+                                TimeWork = t.TimeWork,
+                                State = t.State,
+                                TimeCheckout = t.TimeCheckout
                             };
                             listUsersCheckIn.Add(tmp);
 
@@ -198,7 +241,7 @@ namespace MVCT.Controllers
                 TimeSheetsDTO tmp2 = new TimeSheetsDTO()
                 {
                     CheckIn = true,
-                    TimeWork = 0,
+                    TimeWork = "",
                     WorkingContent = "",
                     CreatedDate = DateTime.Now,
                 };

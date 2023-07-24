@@ -243,6 +243,7 @@ span.psw {
     padding: 6px;
     width: 75%;
     width: 100%;
+    margin-top: -9px;
 }
 
 .item-choose-statistical {
@@ -299,4 +300,63 @@ span.psw {
         background-color: black;
         color: white;
         border-radius: 11px;
+    }
+
+
+
+/*css cho modal register */
+.modal-register-container {
+    position: fixed;
+    /*display:none !important;*/
+    top: 10%;
+    left: 30%;
+}
+.box-login-logout {
+    position: fixed;
+    background: yellow;
+    bottom: 10px;
+    left: 10px;
+    z-index: 5000;
+    padding: 20px;
+}
+.register-container {
+    position: fixed;
+    top: 14%;
+    left: 26%;
+    padding: 20px;
+    border-radius: 27px;
+    z-index:1000;
+}
+.active-register-box{
+    display:block !important;
+}
+.no-active-register-box{
+    display:none !important;
+}
+
+.fade-register-box {
+    background-color: #8b87873d;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -10;
+}
+
+.alter-row-timesheet {
+    position: fixed;
+    top: 20%;
+    left: 35%;
+    overflow: hidden;
+    border-radius: 11px;
+}
+.context-fade-box {
+    z-index: 7000;
+    background-color: #85ff8b;
+    padding:20px;
+}
+    .context-fade-box input {
+        padding: 10px;
+        margin: 5px;
     }

@@ -42,7 +42,22 @@
             <label for="WorkingContent">Nội dung công việc:</label>
             <textarea class="form-control" id="WorkingContent" name="WorkingContent">@Model.WorkingContent</textarea>
         </div>
+        <label>Giờ check out :</label>
+        <input type="datetime-local" value="" id="selectedDateTime" name="TimeCheckout" readonly required>
 
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var dateTimeField = document.getElementById("selectedDateTime");
+                var currentDate = new Date();
+                var year = currentDate.getFullYear();
+                var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                var day = String(currentDate.getDate()).padStart(2, '0');
+                var hours = String(currentDate.getHours()).padStart(2, '0');
+                var minutes = String(currentDate.getMinutes()).padStart(2, '0');
+                var formattedDateTime = year + "-" + month + "-" + day + "T" + hours + ":" + minutes;
+                dateTimeField.value = formattedDateTime;
+            });
+        </script>
         <!-- Nút gửi -->
         <button type="submit" class="btn btn-primary">Gửi</button>
     </form>
@@ -57,8 +72,9 @@
                     <th>Giờ Đã làm</th>
                     <th>WorkingContent</th>
                     <th>Trạng Thái Duyệt</th>
-                    <th>Ngày</th>
-              
+                    <th>Giờ Check In</th>
+                    <th>Giờ Check Out</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -73,8 +89,9 @@
                             <td>@timekeeping.TimeWork</td>
                             <td>@timekeeping.WorkingContent</td>
                             <td>@timekeeping.State</td>
-                            <td>@timekeeping.CreatedDate.ToShortDateString()</td>
-                         
+                            <td>@timekeeping.CreatedDate.ToString("HH:mm:ss")</td>
+                            <td>@(timekeeping.TimeCheckout != null ? timekeeping.TimeCheckout.ToString("HH:mm:ss") : "")</td>
+
                         </tr>
                     }
                 }

@@ -32,4 +32,13 @@ else
             <a class="nav-link"asp-controller="Account" asp-action="Login">Đăng nhập</a>
         </li>
     </ul>
+
+    @section Scripts {
+    @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+    @*/////*@
 }
+<script src="~/js/site.js" asp-append-version="true"></script>

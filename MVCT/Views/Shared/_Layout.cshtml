@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
+@model dynamic
 
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +120,7 @@
                             </li>
 
 
-                             var user = await UserManager.GetUserAsync(User);
+                            var user = await UserManager.GetUserAsync(User);
                             if (user != null && await UserManager.IsInRoleAsync(user, "Admin"))
                             {
 
@@ -147,22 +148,16 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Statistical" asp-action="Index">Thống Kê</a>
                                 </li>
                             }
-
-                         
-
-                          
-
-
-
                         }
 
                     </ul>
-                    <partial name="_LoginPartial" />
+                    @*<partial name="_LoginPartial" />*@
                 </div>
             </div>
         </nav>
     </header>
     <div class="container box-main">
+       
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCT.Models;
+using MVCT.Models.Account;
 using System.Diagnostics;
 
 namespace MVCT.Controllers
@@ -16,6 +17,9 @@ namespace MVCT.Controllers
 
         public IActionResult Index()
         {
+            // moới thêm
+            //RegisterViewModel tmp = new RegisterViewModel();
+            //return View(tmp);
             return View();
         }
 
