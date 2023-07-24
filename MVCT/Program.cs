@@ -7,7 +7,8 @@ using DNTCaptcha.Core;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 using MVCT.Models.Attandance;
-
+using MVCT.Repository.ICheckinRepository;
+using MVCT.Repository.IReportRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+//builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => {
@@ -89,7 +94,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 builder.Services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
-
+builder.Services.AddScoped<IAttandancesRepository, AttandancesRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 
 var app = builder.Build();
 

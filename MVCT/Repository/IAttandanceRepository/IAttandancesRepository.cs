@@ -6,8 +6,7 @@ namespace MVCT.Repository.ICheckinRepository
  
     public interface IAttandancesRepository : IRepository<Attandances>
     {
-        void Update(Attandances obj);
-
+        Task<Attandances> UpdatedAsync(Attandances attandances);
 
     }
 }

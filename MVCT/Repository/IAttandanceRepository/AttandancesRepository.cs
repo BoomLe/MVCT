@@ -12,9 +12,14 @@ namespace MVCT.Repository.ICheckinRepository
             _db = db;
         }
 
-        public  void Update(Attandances obj)
+   
+
+        public async Task<Attandances> UpdatedAsync(Attandances attandances)
         {
-             _db.Attandances.Update(obj);
+            dbSet.Update(attandances);
+            await SaveAsync();
+
+            return attandances;
         }
     }
 }

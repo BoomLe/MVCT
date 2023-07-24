@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCT.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230721041829_AddModelAttandances")]
-    partial class AddModelAttandances
+    [Migration("20230722081733_AddIsNotNull")]
+    partial class AddIsNotNull
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

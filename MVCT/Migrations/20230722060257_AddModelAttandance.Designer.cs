@@ -3,6 +3,7 @@ using System;
 using MVCT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCT.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230722060257_AddModelAttandance")]
+    partial class AddModelAttandance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,11 +99,10 @@ namespace MVCT.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DataTime")
+                    b.Property<DateTime?>("DataTime")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
@@ -108,34 +110,6 @@ namespace MVCT.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Attandances");
-                });
-
-            modelBuilder.Entity("MVCT.Models.UserReport.UserReports", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Messages")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("SendnDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserReports");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -270,20 +244,7 @@ namespace MVCT.Migrations
                 {
                     b.HasOne("MVCT.Models.AppUser", "User")
                         .WithMany("Attandances")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MVCT.Models.UserReport.UserReports", b =>
-                {
-                    b.HasOne("MVCT.Models.AppUser", "User")
-                        .WithMany("UserReports")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -342,8 +303,6 @@ namespace MVCT.Migrations
             modelBuilder.Entity("MVCT.Models.AppUser", b =>
                 {
                     b.Navigation("Attandances");
-
-                    b.Navigation("UserReports");
                 });
 #pragma warning restore 612, 618
         }

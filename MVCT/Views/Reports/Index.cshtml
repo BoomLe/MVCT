@@ -1,0 +1,74 @@
+﻿@using MVCT.Models.UserReport;
+@model IEnumerable<UserReports>
+@inject UserManager<AppUser> userManager;
+
+@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+}
+
+<div>
+    <a asp-action="CreateReport" asp-controller="Reports">Tạo báo cáo</a>
+</div>
+
+
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2"> Báo Cáo</h2>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-body p-4">
+         <div class = "row pb-3">
+        <div class="col-6 "> </h2></div>
+       
+    </div>
+        <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>UserName</th>
+            <th>Description</th>
+            <th></th>
+         <th></th>
+         
+        </tr>
+    </thead>
+    <tbody>
+      @foreach (var obj in Model)
+      {
+        <tr>
+            <td>@(++i)</td>
+            <td>
+                @obj.User.UserName
+            </td>
+            <td>
+                @obj.Description
+            </td>
+            <td>
+                @obj.SendnDate
+            </td>
+       <td>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Reports" asp-action="Details" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i> Xem
+                                </a>
+                                <a asp-controller="Reports" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                                    <i class="bi bi-trash-fill"></i> Xóa
+                                </a>
+                            </div>
+        </td>
+
+        </tr>
+        
+      }
+    </tbody>
+</table>
+    </div>
+    </div>
+
+

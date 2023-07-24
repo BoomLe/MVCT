@@ -13,59 +13,82 @@ namespace MVCT.IRepository
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _db;
-        internal DbSet<T>  dbset;
-        public Repository(ApplicationDbContext db )
+        internal DbSet<T> dbSet;
+
+        public Repository(ApplicationDbContext db)
         {
             _db = db;
-            this.dbset = _db.Set<T>();
-        
-            
+            this.dbSet = db.Set<T>();
+
+            //_db.InformationStudents.Include(p => p.Students).ToList();
+        }
+        public async Task CreatedAsync(T entity)
+        {
+            await dbSet.AddAsync(entity);
+            await SaveAsync();
         }
 
-        public void Add(T entity)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter = null, string? includeProperties = null)
         {
-            dbset.Add(entity);
-        }
-
-        public T Get(Expression<Func<T, bool>> filter,string? includeProperties = null)
-        {
-            IQueryable<T> query = dbset;
-            query = query.Where(filter);
-           
-            if(!string.IsNullOrEmpty(includeProperties))
+            IQueryable<T> query = dbSet;
+            if (filter != null)
             {
-                foreach (var item in includeProperties.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries))
+                query = query.Where(filter);
+            };
+
+
+
+            //if (pageSize > 0)
+            //{
+            //    if (pageSize > 100)
+            //    {
+            //        pageSize = 100;
+            //    }
+            //    //skip0.take(5)
+            //    //page number- 2     || page size -5
+            //    //skip(5*(1)) take(5)
+            //    query = query.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+            //}
+
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(item);
+                    query = query.Include(includeProp);
                 }
             }
 
-            return query.FirstOrDefault();
-            //Note:
-            // _db.category.FirstOrDefault(u => u.Id = id) to same
+            return await query.ToListAsync();
+
         }
 
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter = null, string? includeProperties = null)
         {
-            IQueryable<T> query = dbset;
-            if(!string.IsNullOrEmpty(includeProperties))
+            IQueryable<T> query = dbSet;
+            if (filter != null)
             {
-                foreach (var item in includeProperties.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries))
+                query = query.Where(filter);
+            }
+
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(item);
+                    query = query.Include(includeProp);
                 }
             }
-            return query.ToList();
+            return await query.FirstOrDefaultAsync();
         }
 
-        public void Remove(T entity)
+        public async Task RemoveAsync(T entity)
         {
-            dbset.Remove(entity);
+            dbSet.Remove(entity);
+            await SaveAsync();
         }
 
-        public void RemoveRange(IEnumerable<T> entity)
+        public async Task SaveAsync()
         {
-            dbset.RemoveRange(entity);
+            await _db.SaveChangesAsync();
         }
     }
 }

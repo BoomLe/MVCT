@@ -1,3 +1,78 @@
-﻿<h1>
-    Hello Member !
-</h1>
+﻿@using MVCT.Models.Member;
+@model MemberAttandanceInfo
+                
+    
+             
+
+
+<form asp-action="AddAttendance">
+
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-white py-2"> CheckIn - CheckOut</h2>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body p-4">
+            <div class="row pb-3">
+                <div class="col-6 "> </h2></div>
+
+            </div>
+            <div class="row">
+
+
+                <div class="col-5">
+                    <i class="bi bi-alarm">
+                        <h3>
+                            Check In : @if (@Model.CheckIn != null)
+                            {
+                                @Model.CheckIn.Value.ToString("HH:mm:ss")
+                            }
+                            else
+                            {
+
+                            }
+                        </h3>
+                    </i>
+
+                </div>
+
+                <div class="col-5 offset-2">
+                    <i class="bi bi-alarm-fill">
+                        <h3>
+                            Check Out : @if (@Model.CheckOut != null)
+                            {
+                                @Model.CheckOut.Value.ToString("HH:mm:ss")
+                            }
+                            else
+                            {
+
+                            }
+                        </h3>
+                    </i>
+
+
+                </div>
+
+
+
+                <div class=" text-center">
+                    <input type="submit" value="Check-In && Check-Out" class="btn btn-success form-control" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

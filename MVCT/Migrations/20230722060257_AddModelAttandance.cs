@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MVCT.Migrations
 {
     /// <inheritdoc />
-    public partial class AddModelAttandances : Migration
+    public partial class AddModelAttandance : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,8 +62,8 @@ namespace MVCT.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DataTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                    DataTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -73,8 +73,7 @@ namespace MVCT.Migrations
                         name: "FK_Attandances_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 

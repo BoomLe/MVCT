@@ -1,0 +1,49 @@
+﻿@using MVCT.Models.UserReport;
+@model UserReports
+
+
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Báo Cáo</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+     
+        <form>
+            <div class="row">
+                <div>
+                    <div class="col-5 ">
+
+                        <label class="control-label pt-2 h5" style="font-weight:bold">Tiêu đề : @Model.Description</label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="pb-5">
+                    <div class="text-center h5" style="font-weight:bold">Nội Dung</div>
+                    <div class="text-secondary h6" style="font-size:20px;">
+                        @Html.DisplayFor(model => model.Messages)
+                    </div>
+                </div>
+                <hr />
+
+
+                <div class="col-3 pb-2 ">
+
+                    <a asp-controller="Reports" asp-action="Index" class="btn-primary btn form-control ">Danh sách báo cáo </a>
+                </div>
+
+
+            </div>
+        </form>
+
+
+       
+    </div>
+</div>

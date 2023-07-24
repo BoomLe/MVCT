@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 using MVCT.Models.Attandance;
+using MVCT.Models.UserReport;
 
 namespace MVCT.Models 
 {
@@ -17,6 +18,8 @@ namespace MVCT.Models
           public DateTime? BirthDate { get; set; }
 
           public List<Attandances> Attandances { set; get; }
+          
+          public List<UserReports> UserReports { set; get; }
 
 
 

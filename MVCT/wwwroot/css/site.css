@@ -1,20 +1,20 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 
@@ -132,7 +132,6 @@ span.psw {
     .form-item i {
         font-size: 1.5vw;
         color: #ccc;
-     
     }
 
     .form-item input {
@@ -197,3 +196,45 @@ span.psw {
 /* .item-alert{
   display: block;
 } */
+
+
+
+.box-main {
+    /*background-color: #8ffffc;*/
+    position: relative;
+    left: 0;
+}
+
+.box-list-timesheets {
+    margin-top: 10px;
+    background-color: #75ffb4;
+}
+
+.form-timesheets {
+    text-align: left;
+}
+
+.select-date-TimeKeeping {
+    /*  background-color: red;*/
+}
+
+.select-date-TimeKeeping-btn {
+    width: 5%;
+    padding: 0;
+}
+/*toggle hightlingt accept check out*/
+.acpect {
+    background-color: greenyellow !important;
+    color: black !important;
+}
+
+.line-user-chetout {
+    background-color: teal;
+    font-size: 1.3vw;
+    color: white;
+}
+
+.accept-checkout {
+    padding: 6px;
+    width: 75%;
+}

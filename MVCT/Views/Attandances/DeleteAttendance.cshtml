@@ -1,0 +1,52 @@
+﻿@using MVCT.Models.Attandance;
+@model AttandanceInfo
+
+<form asp-action="DeleteAttendance">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-primary">Xóa Booking Villa</h1>
+        <hr />
+        <input hidden asp-for="Username" />
+        <div class="row">
+
+
+            <div class="col-2">
+                <label asp-for="CurrentDate" class="control-label pt-2" style="font-size:20px;">Số phòng</label>
+            </div>
+
+            <div class="col-10 pb-3">
+                <input asp-for="CurrentDate" disabled class="form-control" />
+
+            </div>
+
+            <div class="col-2">
+                <label asp-for="Username" class="control-label pt-2" style="font-size:20px;">Số phòng</label>
+            </div>
+
+            <div class="col-10 pb-3">
+                <input asp-for="Username" disabled class="form-control" />
+
+            </div>
+
+
+            <div class="col-5">
+                <input type="submit" value="Xóa" class="btn btn-danger form-control" />
+            </div>
+
+            <div class="col-5 offset-2">
+                <a asp-action="IndexVilla" asp-controller="Villa" class="btn-primary btn form-control">Quay về danh sách</a>
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,61 +1,75 @@
 ﻿@using MVCT.Models.Attandance;
-@model IEnumerable<Attandances>
-@inject SignInManager<IdentityUser> SignInManager
+@model IEnumerable<AttandanceInfo>
+
 @{
     ViewData["Title"] = "Index";
+    int i = 0;
 }
-<h1>Checkins</h1>
 
-<p>
-    <a asp-action="CheckinUser" asp-controller="Attandances">
-        Check-In
-    </a>
-</p>
-<table class="table">
+
+
+
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2"> Checkins</h2>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-body p-4">
+         <div class = "row pb-3">
+        <div class="col-6 "> </h2></div>
+       
+    </div>
+        <table id="tblData" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>
-              Id
-            </th>
-            <th>
-                UserName
-            </th>
-            <th>
-                DateTime
-            </th>
-            <th></th>
+            <th>STT</th>
+            <th>Date</th>
+            <th>UserName</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+         
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            
-            <tr>
-                <td>
-                    @item.Id
-                </td>
-                <td>
-                   @item.User.UserName
-                </td>
-                <td>
-                    @item.DataTime
-                </td>
-                <td></td>
-              @*  <td>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
-                    }
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
-                    }
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                    }
-                </td>*@
-            </tr>
-        }
+      @foreach (var obj in Model)
+      {
+        <tr>
+            <td>@(++i)</td>
+            <td>
+                @obj.CurrentDate.ToString("dd-MM-yyyyy")
+            </td>
+            <td>
+                @obj.Username
+            </td>
+            <td>
+                            @if (@obj.CheckIn != null)
+                            {
+                                @obj.CheckIn.Value.ToString("HH:mm:ss")
+                            }
+            </td>
+            <td>
+                            @if (@obj.CheckOut != null)
+                            {
+                                @obj.CheckOut.Value.ToString("HH:mm:ss")
+                            }
+            </td>
+            <td>
+               
+            </td>
+        </tr>
+        
+      }
     </tbody>
 </table>
+    </div>
+    </div>
+
+@section Scripts{
+    <script src="~/js/product.js"></script>
+}
+
