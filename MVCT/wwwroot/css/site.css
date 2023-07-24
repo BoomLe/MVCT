@@ -202,8 +202,9 @@ span.psw {
 
 .box-main {
     background-color: #8ffffc;
-    position: relative;
+    position: initial;
     left:0;
+    margin-bottom:20px;
 }
 .box-list-timesheets {
     margin-top: 10px;
@@ -223,8 +224,8 @@ span.psw {
 
 }
 /*toggle hightlingt accept check out*/
-.acpect {
-    background-color: greenyellow !important;
+.click-choose-row {
+    background-color: yellow !important;
     color: black !important;
 }
 .line-user-chetout {
@@ -232,7 +233,70 @@ span.psw {
     font-size: 1.3vw;
     color: white;
 }
+.line-user-chetout-yes {
+    background-color: #03eb3a;
+}
+.line-user-chetout-no {
+    background-color: #5e5e5e;
+}
 .accept-checkout {
     padding: 6px;
     width: 75%;
+    width: 100%;
 }
+
+.item-choose-statistical {
+    display: block;
+    padding: 10px;
+    background-color: yellow;
+}
+
+.chart-container{
+    display:flex;
+}
+.chart-box {
+    width: 50%;
+    border-right-style: solid;
+    border-color: #848488;
+    padding:10px;
+}
+#pie-chart{
+        height:100%;
+        width:100%;
+}
+.container-footer{
+    position:inherit;
+    background-color:black !important;
+}
+.btn-output-pdf{
+    width:10%;
+}
+.register-container{
+    background-color:white;
+}
+
+.carousel-inner img{
+    width: 100%;
+}
+.carousel-inner{
+    height:500px;
+}
+/*#nav_header {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/ /* Tạo hiệu ứng bóng đổ nếu cần */
+    /*transition: top 0.3s ease;
+}
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    background-color:red;
+}*/
+.input-statistical-month-year{
+    display:flex;
+}
+    .input-statistical-month-year select {
+        width: 90%;
+        margin-right: 20px;
+        background-color: black;
+        color: white;
+        border-radius: 11px;
+    }

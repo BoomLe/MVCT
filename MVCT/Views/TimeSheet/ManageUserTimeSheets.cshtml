@@ -8,12 +8,16 @@
 
     <form class="select-date-TimeKeeping" id="dateForm" asp-action="GetUsersTimeKeeping" method="post">
         <label for="selectedDate">Chọn ngày:</label>
-        <input type="date" style="padding: 5px" id="selectedDate" name="selectedDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+        <input type="date" style="padding: 5px" id="selectedDate" name="selectedDate" value="@(((DateTime?)ViewBag.selectedDate)?.ToString("yyyy-MM-dd"))" required>
 
 
         <button type="submit" class="btn btn-primary select-date-TimeKeeping-btn">Gửi</button>
     </form>
-
+    @*// check date selected*@
+    @if (TempData.ContainsKey("SelectedDate") && TempData["SelectedDate"] is DateTime selectedDate)
+    {
+        <p style="text-align: left;">Ngày đã chọn: @selectedDate.ToString("dd/MM/yyyy")</p>
+    }
     @*// hiển thị danh sách user checkin trong ngay*@
     <table class="table">
         <thead>
@@ -34,26 +38,28 @@
             {
                 foreach (var timekeeping in ViewBag.listUsersCheckIn)
                 {
-                    <tr id="@timekeeping.Id" class="line-user-chetout">
+                    <tr id="@timekeeping.Id" class="line-user-chetout @(timekeeping.State == "Yes" ? "line-user-chetout-yes" : "line-user-chetout-no")">
                         <td>@timekeeping.UserName</td>
                         <td>@(timekeeping.CheckIn ? "Đã Check in" : "Chưa Check in")</td>
                         <td>@timekeeping.TimeWork</td>
                         <td>@timekeeping.WorkingContent</td>
                         <td>@timekeeping.State</td>
                         <td>@timekeeping.CreatedDate.ToShortDateString()</td>
-                        <td><button class="accept-checkout" onclick="hightLight(@timekeeping.Id)">OKe em</button></td>
+                        <td>
+                            <button class="accept-checkout" onclick="hightLight(@timekeeping.Id)">
+                                @(timekeeping.State == "Yes" ? "Bỏ duyệt" : "Duyệt")
+                            </button>
+                        </td>
                     </tr>
                 }
             }
         </tbody>
     </table>
 
-    <button onclick="saveListAcceptCheckout()">Oke Lưu Luôn</button>
+    <!-- Trong View của bạn -->
+    <button onclick="saveListAcceptCheckout('@ViewBag.managerCheckOut')">Oke Lưu Luôn</button>
+    @*<button onclick="saveListAcceptCheckout()">Oke Lưu Luôn</button>*@
 
-    @*// check date selected*@
-    @if (TempData.ContainsKey("SelectedDate") && TempData["SelectedDate"] is DateTime selectedDate)
-    {
-        <p>Ngày đã chọn: @selectedDate.ToString("dd/MM/yyyy")</p>
-    }
+   
 </div>
 

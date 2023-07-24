@@ -17,7 +17,7 @@ namespace MVCT.Models
 
         public string? WorkingContent { get; set; }
 
-        public string? State { get; set; } = "No";
+        public string? State { get; set; } = "No"; // duyệt chưa
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public bool? CheckIn { get ; set; } = false;

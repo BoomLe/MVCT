@@ -1,0 +1,97 @@
+﻿
+<div class="input-statistical-month-year">
+    <form asp-controller="Statistical" asp-action="GetDataStatisticalCheckInOutOfMonth" method="get">
+        <div>
+            <label for="month">Tháng:</label>
+            <select id="month" name="month">
+                @for (int i = 1; i <= 12; i++)
+                {
+                    if (i == DateTime.Now.Month)
+                    {
+                        <option value="@i" selected>@i</option>
+                    }
+                    else
+                    {
+                        <option value="@i">@i</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div>
+            <label for="year">Năm:</label>
+            <select id="year" name="year">
+                @for (int i = DateTime.Now.Year - 10; i <= DateTime.Now.Year + 10; i++)
+                {
+                    if (i == DateTime.Now.Year)
+                    {
+                        <option value="@i" selected>@i</option>
+                    }
+                    else
+                    {
+                        <option value="@i">@i</option>
+                    }
+                }
+            </select>
+        </div>
+        <button type="submit">OKE em</button>
+    </form>
+
+</div>
+<div class="phppot-container chart-container">
+    <div class="chart-box">
+        <h1>Responsive Pie Chart</h1>
+        <div>
+            <canvas id="pie-chart"></canvas>
+        </div>
+    </div>
+    <div>
+        <h1>Tổng thống kê số lượng duyệt và không duyệt toàn nhân viên </h1>
+        <h4>Duyệt ngày làm (pass check in-out (tổng nhân viên ) ) :  @ViewBag.PassCheckOut</h4>
+        <h4>Không Duyệt :  @ViewBag.NoPassCheckOut</h4>
+
+    </div>
+    
+</div>
+
+<button class="btn-output-pdf" onclick="generatePDF()">In PDF</button>
+
+
+@*<script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>*@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+    new Chart(document.getElementById("pie-chart"), {
+
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Duyệt',
+                'Không Duyệt',
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [@ViewBag.PassCheckOut, @ViewBag.NoPassCheckOut],
+                backgroundColor: [
+                    '#0cff20',
+                    '#626663',
+                  
+                ],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Pie Chart'
+                }
+            }
+        }
+    });
+</script>

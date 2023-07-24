@@ -145,13 +145,14 @@ namespace MVCT.Controllers
        // lấy đám nhân viên của ngày đó để chấm công
         public async Task<IActionResult> ManageUserTimeSheets()
         {
-            // lấy ngày được select 
-            if (TempData.ContainsKey("SelectedDate") && TempData["SelectedDate"] is DateTime selectedDate)
-            {
-                // lấy danh sách chấm công trong ngày
-                List<Timesheets> Timekeepings = _context.Timesheets.Where(t => selectedDate.Day == t.CreatedDate.Day &&
+            DateTime selectedDate = TempData.ContainsKey("SelectedDate") && TempData["SelectedDate"] is DateTime tempDate
+                                     ? tempDate
+                                     : DateTime.Today;
+            // lấy danh sách chấm công trong ngày ( đã check in và out
+            List<Timesheets> Timekeepings = _context.Timesheets.Where(t => selectedDate.Day == t.CreatedDate.Day &&
                                                           selectedDate.Month == t.CreatedDate.Month &&
-                                                          selectedDate.Year == t.CreatedDate.Year).ToList();
+                                                          selectedDate.Year == t.CreatedDate.Year
+                                                          && t.TimeWork != null).ToList();
 
                 //  lấy thêm tên của người ta nữa
                 //1 lấy ds user ứng với id đó thôi
@@ -194,12 +195,20 @@ namespace MVCT.Controllers
 
                 }
 
-                TimeSheetsDTO tmp2 = new TimeSheetsDTO();
+                TimeSheetsDTO tmp2 = new TimeSheetsDTO()
+                {
+                    CheckIn = true,
+                    TimeWork = 0,
+                    WorkingContent = "",
+                    CreatedDate = DateTime.Now,
+                };
                 ViewBag.listUsersCheckIn = listUsersCheckIn;
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                ViewBag.managerCheckOut = currentUser.Id;
+                ViewBag.selectedDate = selectedDate;
+            //return View();
 
-                //return View();
-
-                return View(tmp2);
+            return View(tmp2);
 
 
                 //string json = JsonConvert.SerializeObject(listUsersCheckIn);
@@ -207,9 +216,9 @@ namespace MVCT.Controllers
                 //// Trả về chuỗi JSON trong phản hồi HTTP
                 //return Content(json, "application/json");
                 ////return View(selectedDate);
-            }
+            
 
-            return View();
+            //return View();
         }
 
 
@@ -223,14 +232,44 @@ namespace MVCT.Controllers
 
 
 
+        // hàm này dùng để xử lý việc duyệt check out cho user
         [HttpPost("/save-check-out/")]
-        public IActionResult AcceptCheckouts([FromBody] List<int> highlightedRows)
+        public IActionResult AcceptCheckouts([FromBody] CheckoutData data)
         {
+            List<int> highlightedCheckout = data.highlightedCheckout;
+            DateTime date = data.date;
+            string idManagerChectOut = data.idManagerCheckOut;
             // Xử lý danh sách id nhận được từ fetch
             // ...
+            List<Timesheets> ls = new List<Timesheets>();
+            foreach (int i in highlightedCheckout)
+            {
+                Timesheets tmp = _context.Timesheets.Find(i);
 
-            //return Json(highlightedRows);*/ //trả về kết quả hoặc thông báo
-            return Json(new { message = "Dữ liệu đã được ghi nhận thành công.", ds = highlightedRows });
+                if (tmp != null)
+                {
+                    if (tmp.State == "Yes")
+                    {
+                        tmp.State = "No"; // Sử dụng toán tử gán (=) thay vì toán tử so sánh (==)
+                        tmp.UserCheckId = null;
+                    }
+                    else
+                    {
+                        tmp.State = "Yes"; // Sử dụng toán tử gán (=) thay vì toán tử so sánh (==)
+                        tmp.UserCheckId = idManagerChectOut;
+                    }
+                }
+                _context.Timesheets.Update(tmp);
+                _context.SaveChanges();
+            }
+            //have list time sheet to update yes
+
+            return Json(new { Success = true, Message = "Gửi dữ liệu thành công!" });
+            //return Json(data);
+
+
+            // khong làm như vầy được vì mình gọi js
+            //return RedirectToAction("GetUsersTimeKeeping",date);
         }
     }
 }

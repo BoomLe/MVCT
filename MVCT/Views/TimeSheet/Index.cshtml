@@ -28,14 +28,14 @@
         <!-- Input chọn ngày -->
         <div class="form-group">
             <label for="SelectedDate">Chọn ngày:</label>
-            <input type="date" class="form-control" id="SelectedDate" name="CreatedDate" readonly value="@Model.CreatedDate.ToString("yyyy-MM-dd")" />
+            <input type="date" class="form-control" id="SelectedDate" name="CreatedDate"  value="@Model.CreatedDate.ToString("yyyy-MM-dd")" />
         </div>
 
-        <!-- Ô input nhập giờ làm -->
         <div class="form-group">
             <label for="TimeWork">Giờ làm:</label>
-            <input type="number" class="form-control" id="TimeWork" name="TimeWork" value="@Model.TimeWork" />
+            <input type="number" class="form-control" id="TimeWork" name="TimeWork" value="@Model.TimeWork" min="1" />
         </div>
+
 
         <!-- Ô input nhập nội dung công việc -->
         <div class="form-group">
@@ -67,7 +67,7 @@
                 {
                     foreach (var timekeeping in ViewBag.Timekeepings)
                     {
-                        <tr style="@(timekeeping.CreatedDate.Date == DateTime.Now.Date ? "background-color: yellow;" : "")">
+                        <tr class="line-user-chetout @(timekeeping.State == "Yes" ? "line-user-chetout-yes" : "line-user-chetout-no")">
                             <td>@timekeeping.Id</td>
                             <td>@(timekeeping.CheckIn ? "Đã Check in" : "Chưa Check in")</td>
                             <td>@timekeeping.TimeWork</td>

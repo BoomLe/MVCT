@@ -93,7 +93,12 @@ function login(event) {
 
 
 }
-
+function generatePDF() {
+    // Tạo một đối tượng jsPDF mới
+ 
+        window.print();
+ 
+}
 
 
 // lưu danh sách accpet checkout để đẩy xuống back end 
@@ -101,7 +106,7 @@ var highlightedCheckout = [];
 function hightLight(id) {
     console.log("có vô hightLight", id)
     var row = document.getElementById(id);
-    row.classList.toggle('acpect'); // Toggle class 'acpect' cho phần tử
+    row.classList.toggle('click-choose-row'); // Toggle class 'acpect' cho phần tử
 
 
 
@@ -115,20 +120,29 @@ function hightLight(id) {
     }
 }
 
-function saveListAcceptCheckout() {
+function saveListAcceptCheckout(idMN) {
 
-    console.log("co vô để gửi")
+    let date = document.getElementById("selectedDate").value;
+
+    console.log("co vô để gửi", highlightedCheckout, "ngày là ", date)
     fetch('/save-check-out/', {
         method: 'POST', // Phương thức HTTP (POST trong trường hợp này)
         headers: {
             'Content-Type': 'application/json' // Định dạng dữ liệu là JSON
         },
-        body: JSON.stringify(highlightedCheckout) // Chuyển đổi danh sách thành chuỗi JSON và gửi xuống backend
+        body: JSON.stringify({
+            highlightedCheckout: highlightedCheckout, // Danh sách id đã được chọn
+            date: date,
+            idManagerCheckOut : idMN// Ngày đã chọn
+        }) // Chuyển đổi danh sách thành chuỗi JSON và gửi xuống backend
     })
         .then(response => response.json()) // Chuyển đổi phản hồi từ backend thành đối tượng JSON
         .then(data => {
-            console.log(data); // In phản hồi từ backend ra console để kiểm tra
+            console.log("back end gửi về" ,data); // In phản hồi từ backend ra console để kiểm tra
             // Có thể thực hiện các thao tác tiếp theo với dữ liệu nhận được từ backend
+            if (data.success) {
+                location.reload(); // Load lại trang nếu data.Success là true
+            }
         })
         .catch(error => {
             console.error('Lỗi khi gửi dữ liệu xuống backend:', error); // Xử lý lỗi nếu có

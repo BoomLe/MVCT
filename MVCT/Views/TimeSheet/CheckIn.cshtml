@@ -3,7 +3,7 @@
     <form id="checkinForm" asp-action="CheckInForUser" method="post">
         <div class="form-group">
             <label for="selectedDate">Ngày check-in:</label>
-            <input type="date" id="selectedDate" name="dateCheckIn" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly required>
+            <input type="date" id="selectedDate" name="dateCheckIn" value="@DateTime.Now.ToString("yyyy-MM-dd")"  required>
         </div>
 
         <button type="submit" class="btn btn-primary">Check In</button>

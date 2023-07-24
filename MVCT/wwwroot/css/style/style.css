@@ -1,0 +1,112 @@
+
+.nav-header-contact{
+     padding-left: -50px; 
+    width: 100%;
+     background-color: rgb(255, 255, 255); 
+}
+.nav-icon{
+    color: rgb(134, 5, 5);
+}
+.img-logo{
+    width: 60%;
+
+}
+.image-header{
+    position: relative;
+}
+.contact-item{
+    color: white;
+    font-size: 3vw;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+     border-bottom-style: solid;
+    padding-left: 40%; 
+}
+.line-header{
+    width: 300px;
+    height: 5px;
+    
+    background: linear-gradient(to right, #aa056d, #9f07cd);
+    position: absolute;
+    bottom: 20px;
+    left: 38%;
+    right: 0; 
+}
+
+ cc for map 
+.map-container{
+    width: 100%;
+    padding: 10px;
+     background-color: red; 
+}
+.map-container iframe{
+    width: 100%;
+    height: 500px;
+}
+.content-footer{
+    background-color: black !important;
+}
+
+css for nav header
+.nav-header-contact {
+    padding-left: -50px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+}
+
+.nav-icon {
+    color: rgb(134, 5, 5);
+}
+
+.img-logo {
+    width: 40%;
+}
+
+.image-header {
+    position: relative;
+}
+
+.contact-item {
+    color: white;
+    font-size: 3vw;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+     border-bottom-style: solid;
+    padding-left: 40%; 
+}
+
+.line-header {
+    width: 300px;
+    height: 5px;
+    background: linear-gradient(to right, #aa056d, #9f07cd);
+    position: absolute;
+    bottom: 20px;
+    left: 38%;
+     right: 0; 
+}
+
+.map-container {
+    width: 100%;
+    padding: 10px;
+     background-color: red; 
+}
+
+    .map-container iframe {
+        width: 100%;
+        height: 500px;
+    }
+
+.container-footer {
+    background-color: #292929;
+}
+.container-login{
+    position:relative;
+}
