@@ -204,8 +204,11 @@ function showRegisterBox() {
     }
 }
 
-function showAlterTimeSheetBox() {
+function showAlterTimeSheetBox(id) {
     var registerBox = document.getElementById("alter-row-timesheet");
+    let idTimeSheet = document.getElementById("Id-TimeSheet");
+    idTimeSheet.value = id
+
     console.log("co vao")
     // Toggle class "active" cho "registerbox"
     if (registerBox.classList.contains("active-register-box")) {

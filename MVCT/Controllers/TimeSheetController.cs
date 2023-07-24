@@ -314,5 +314,37 @@ namespace MVCT.Controllers
             // khong làm như vầy được vì mình gọi js
             //return RedirectToAction("GetUsersTimeKeeping",date);
         }
+
+        public IActionResult alterChangeTimeCheckInOut(AlterTimeSheet data)
+        {
+            Timesheets tmp = _context.Timesheets.Find(data.Id);
+            if (tmp != null) {
+                tmp.CreatedDate = (DateTime)data.dateCheckIn;
+                tmp.TimeCheckout = data.TimeCheckout;
+
+                // set up lại time
+                int totalMinutes = 0;
+                string time = "";
+                TimeSpan? difference = tmp.TimeCheckout - tmp.CreatedDate;
+                if (difference.HasValue)
+                {
+                    totalMinutes = (int)difference.Value.TotalMinutes;
+                    int hour = totalMinutes / 60;
+                    int minute = totalMinutes % 60;
+                    time = hour + ":" + minute;
+                }
+
+
+                tmp.TimeWork = time;
+
+
+                _context.Timesheets.Update(tmp);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("ManageUserTimeSheets");
+        }
+
     }
+
+   
 }

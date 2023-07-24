@@ -57,23 +57,26 @@
                                 @(timekeeping.State == "Yes" ? "Bỏ duyệt" : "Duyệt")
                             </button>
                         </td>
-                        <td><i class="fa-regular fa-pen-to-square" onclick="showAlterTimeSheetBox()"></i></td>
+                        <td><i class="fa-regular fa-pen-to-square" onclick="showAlterTimeSheetBox(@timekeeping.Id)"></i></td>
                     </tr>
                 }
             }
         </tbody>
     </table>
-    <div id="alter-row-timesheet" class="alter-row-timesheet">
+    <form id="alter-row-timesheet" asp-action="alterChangeTimeCheckInOut" class="alter-row-timesheet no-active-register-box">
+     
         <div class="fade-register-box" onclick="showAlterTimeSheetBox()"></div>
         <div class="context-fade-box">
             <label>Giờ check in</label>
             <input type="datetime-local" value="" id="selectedDateTime" name="dateCheckIn"  required>
             <label>Giờ check Out</label>
             <input type="datetime-local" value="" id="selectedDateTime" name="TimeCheckout"  required>
+            <input style="display:none" type="text" value="3" id="Id-TimeSheet" name="Id" readonly>
 
             <button type="submit">Yo</button>
+      
         </div>
-    </div>
+    </form>
     <!-- Trong View của bạn -->
     <button onclick="saveListAcceptCheckout('@ViewBag.managerCheckOut')">Oke Lưu Luôn</button>
     @*<button onclick="saveListAcceptCheckout()">Oke Lưu Luôn</button>*@

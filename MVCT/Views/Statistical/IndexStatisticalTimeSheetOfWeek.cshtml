@@ -1,6 +1,6 @@
 ﻿
 <div class="input-statistical-month-year">
-    <form asp-controller="Statistical" asp-action="GetDataStatisticalCheckInOutOfMonth" method="get">
+    <form class="form-statistical" asp-controller="Statistical" asp-action="GetDataStatisticalCheckInOutOfMonth" method="get">
         <div>
             <label for="month">Tháng:</label>
             <select id="month" name="month">
@@ -45,10 +45,10 @@
             <canvas id="pie-chart"></canvas>
         </div>
     </div>
-    <div>
-        <h1>Tổng thống kê số lượng duyệt và không duyệt toàn nhân viên </h1>
-        <h4>Duyệt ngày làm (pass check in-out (tổng nhân viên ) ) :  @ViewBag.PassCheckOut</h4>
-        <h4>Không Duyệt :  @ViewBag.NoPassCheckOut</h4>
+    <div class="list-description-chart">
+        <h3 style="text-align:center">Tổng thống kê số lượng duyệt và không duyệt toàn nhân viên </h3>
+        <h6>Duyệt ngày làm (pass check in-out (tổng nhân viên ) ) :  @ViewBag.PassCheckOut</h6>
+        <h6>Không Duyệt :  @ViewBag.NoPassCheckOut</h6>
 
     </div>
     
