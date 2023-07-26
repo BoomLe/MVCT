@@ -29,15 +29,15 @@
                 <!-- User Name -->
                 <div class="form-item" id="form-item-username" placeholder="Email or User..." onclick="highlightInput(this)">
                     <i class="fa-solid fa-user"></i>
-                    <input asp-for="UserNameOrEmail" id="userName" style="border: none !important;outline: none !important;" />
+                    <input class="login-input" asp-for="UserNameOrEmail" id="userName" style="border: none !important;outline: none !important;" />
                     @*<input type="text" id="userName" placeholder="E-mail address" name="uname">*@
                 </div>
 
 
                 <!-- Password -->
-                <div class="form-item" id="form-item-password" placeholder="Password..." onclick="highlightInput(this)">
+                <div style="margin-bottom: 10px;" class="form-item" id="form-item-password" placeholder="Password..." onclick="highlightInput(this)">
                     <i class="fa-solid fa-lock"></i>
-                    <input asp-for="Password" id="passWord"  />
+                    <input class="login-input" asp-for="Password" id="passWord" />
                     @*<input type="password" id="passWord" placeholder="Password" name="psw">*@
                 </div>
 

@@ -166,9 +166,9 @@ function saveListAcceptCheckout(idMN) {
 
     console.log("co vô để gửi", highlightedCheckout, "ngày là ", date)
     fetch('/save-check-out/', {
-        method: 'POST', // Phương thức HTTP (POST trong trường hợp này)
+        method: 'POST', 
         headers: {
-            'Content-Type': 'application/json' // Định dạng dữ liệu là JSON
+            'Content-Type': 'application/json' 
         },
         body: JSON.stringify({
             highlightedCheckout: highlightedCheckout, // Danh sách id đã được chọn
@@ -220,4 +220,51 @@ function showAlterTimeSheetBox(id) {
     }
 }
 
+function showDeleteTimeSheetBox(id) {
+    var registerBox = document.getElementById("alter-delete");
+    let idTimeSheet = document.getElementById("confirm-delete-input");
+    idTimeSheet.value = id
 
+    console.log("co vao")
+    // Toggle class "active" cho "registerbox"
+    if (registerBox.classList.contains("active-register-box")) {
+        registerBox.classList.remove("active-register-box");
+        registerBox.classList.add("no-active-register-box");
+    } else {
+        registerBox.classList.add("active-register-box");
+        registerBox.classList.remove("no-active-register-box");
+    }
+}
+
+function toggleElement() {
+    var element = document.getElementById("toggleElement");
+    var arrow = document.getElementById("arrowToClick");
+
+    console.log(arrow)
+    var currentMargin = parseInt(getComputedStyle(element).marginLeft);
+
+    if (currentMargin >= -5) {
+        element.style.marginLeft = "-125px"; // Giả sử thành phần có chiều rộng 100px
+        arrow.style.marginLeft = "12px";
+
+    } else {
+        element.style.marginLeft = "10px";
+        arrow.style.marginLeft = "-23px"
+    }
+}
+function toggleElement2() {
+    var element = document.getElementById("logoutForm");
+    var arrow = document.getElementById("arrowToClick2");
+
+    //console.log(arrow)
+    var currentMargin = parseInt(getComputedStyle(element).marginLeft);
+
+    if (currentMargin >= -5) {
+        element.style.marginLeft = "-200px"; // Giả sử thành phần có chiều rộng 100px
+        arrow.style.marginLeft = "12px";
+
+    } else {
+        element.style.marginLeft = "25px";
+        arrow.style.marginLeft = "-102px"
+    }
+}

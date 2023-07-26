@@ -21,6 +21,8 @@ using Newtonsoft.Json;
 using System.Security.Cryptography;
 namespace MVCT.Controllers
 {
+    [Authorize]
+    [Authorize(Roles = "Admin,Manager")]
     public class StatisticalController : Controller 
     {
         private readonly ApplicationDbContext _context;
@@ -74,6 +76,8 @@ namespace MVCT.Controllers
             ViewBag.PassCheckOut = amountPass;
             ViewBag.NoPassCheckOut = amountFail;
 
+            ViewBag.MonthCurrentChoose = month;
+            ViewBag.YearCurrentChoose = year;
             return View("IndexStatisticalTimeSheetOfWeek");
         }
 

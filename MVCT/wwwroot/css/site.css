@@ -208,14 +208,16 @@ span.psw {
 }
 .box-list-timesheets {
     margin-top: 10px;
-    background-color: #75ffb4;
+    background-color: #ffffff;
+    color: black;
 }
 .form-timesheets{
     text-align: left;
 }
 
-.select-date-TimeKeeping{
-  /*  background-color: red;*/
+.select-date-TimeKeeping {
+    /*  background-color: red;*/
+    margin-bottom: 10px;
 }
 
 .select-date-TimeKeeping-btn {
@@ -234,7 +236,7 @@ span.psw {
     color: white;
 }
 .line-user-chetout-yes {
-    background-color: #03eb3a;
+    background-color: #067a39;
 }
 .line-user-chetout-no {
     background-color: #5e5e5e;
@@ -254,9 +256,10 @@ span.psw {
     color: white;
 }
 
-.chart-container{
-    display:flex;
-    border-bottom-style:solid;
+.chart-container {
+    display: flex;
+    border-bottom-style: solid;
+    border-top-style: solid;
 }
 .chart-box {
     width: 50%;
@@ -277,12 +280,13 @@ span.psw {
     border-radius: 9px;
     margin-top: 10px;
 }
-.register-container{
-    background-color:white;
+.register-container {
+    background-color: #1e2930;
 }
 
-.carousel-inner img{
+.carousel-inner img {
     width: 100%;
+    border-radius: 20px;
 }
 .carousel-inner{
     height:500px;
@@ -329,17 +333,26 @@ span.psw {
 }
 .register-container {
     position: fixed;
-    top: 14%;
+    top: 20px;
     left: 26%;
     padding: 20px;
     border-radius: 27px;
     z-index:1000;
 }
-.active-register-box{
-    display:block !important;
+.active-register-box {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    /*display: block !important;*/
+    /*visibility: visible;*/
+    /*transition: opacity 1s ease-in-out, visibility 1s ease-in-out;*/
 }
-.no-active-register-box{
-    display:none !important;
+.no-active-register-box {
+    opacity: 0;
+    pointer-events: none; /* Tắt sự kiện click khi ẩn */
+    transition: opacity 0.5s ease-in-out;
+    /*display: none !important;*/
+    /*visibility: hidden;*/
+    /*transition: opacity 1s ease-in-out, visibility 1s ease-in-out;*/
 }
 
 .fade-register-box {
@@ -358,6 +371,7 @@ span.psw {
     left: 20%;
     overflow: hidden;
     border-radius: 11px;
+    width: 63%;
 }
 .context-fade-box {
     z-index: 7000;
@@ -388,4 +402,131 @@ span.psw {
 }
 .list-description-chart{
     padding-left : 10px;
+}
+#alter-delete {
+    position: fixed;
+    top: 14%;
+    left: 40%;
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.contain-delete-confirm {
+    display: flex;
+}
+.contain-delete-confirm button {
+    margin: 5px;
+    border-radius: 10px;
+}
+.form-register-container-box{
+    color:white;
+}
+.form-group input {
+    padding: 0;
+    height: 30px;
+    width: 122% !important;
+}
+.form-group > label{
+    text-align:left !important;
+}
+.btn-register-accept {
+    margin-left: 141px;
+    /* padding-top: 10px; */
+    font-size: 1.4vw;
+    margin-top: 14px;
+}
+.show-Time-To-CheckIn {
+    width: 20% !important;
+    padding: 5px;
+    margin: 0 auto;
+}
+.btn-checkin {
+    width: 13%;
+    background-color: black !important;
+}
+.show-time-check-out {
+    position: absolute;
+    right: 1.7%;
+    
+}
+.show-time-check-out > input {
+    border: none;
+    background-color: inherit;
+}
+.btn-submit-checkout {
+    width: 5%;
+    margin-left: 95%;
+    background-color: black !important;
+}
+
+.login-input {
+    padding: 0 !important;
+    margin-bottom: 7px !important;
+}
+
+.col-tittle-timesheet {
+    background-color: black;
+    color: white;
+}
+.col-tittle-timesheet th{
+    border-right-style:solid;
+    border-right-color:white;
+}
+
+.enter-change-timesheet-btn {
+    width: 10%;
+    padding: 11px;
+    background-color: white;
+    border-radius: 11px;
+}
+.change-timeCheckin-out-container{
+    background-color: black;
+    z-index:9999; 
+}
+.change-timeCheckin-out-container label{
+    color: white !important;
+}
+.alter-confirm-delete {
+    background-color: #000000 !important;
+}
+.alter-confirm-delete label {
+    color: white !important;
+    font-size: 1.7vw;
+
+}
+.alter-confirm-delete button{
+    background-color:white !important;
+    
+}
+
+.arrowToClick {
+    width: 78px;
+    height: 100px;
+    background: black;
+    position: absolute;
+    transform: rotate(45deg);
+    left: 27px;
+    z-index: -1000;
+}
+#toggleElement{
+    margin-left:-125px;
+    transition:1s;
+}
+#arrowToClick {
+    transition: 1s;
+}
+
+.arrowToClick2 {
+    width: 100px;
+    height: 100px;
+    background: black;
+    transform: rotate(45deg);
+    position: relative;
+    left: 73px;
+    z-index: -100;
+    transition: 1s;
+}
+#logoutForm {
+    margin-left: -200px;
+    transition:1s;
 }

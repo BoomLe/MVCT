@@ -1,14 +1,14 @@
 ﻿<div class="text-center">
     <h1>Check In đi  babe ơi</h1>
     <form id="checkinForm" asp-action="CheckInForUser" method="post">
-        <div class="form-group">
-            <label for="selectedDate">Ngày check-in:</label>
+        <div class="form-group show-Time-To-CheckIn">
+            <label for="selectedDate">Ngày Và Giờ Check In</label>
 @*            <input type="date" id="selectedDate" name="dateCheckIn" value="@DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")"  required>*@
-            <input type="datetime-local" value="" id="selectedDateTime" name="dateCheckIn" readonly required>
+            <input style="width: 97% !important;" type="datetime-local" value="" id="selectedDateTime" name="dateCheckIn" readonly required>
 
 </div>
 
-        <button type="submit" class="btn btn-primary">Check In</button>
+        <button type="submit" class="btn btn-primary btn-checkin">Check In</button>
     </form>
 
 </div>

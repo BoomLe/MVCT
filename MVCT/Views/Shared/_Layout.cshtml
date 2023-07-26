@@ -67,7 +67,7 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active ">
-                        <img src="https://www.10wallpaper.com/wallpaper/1366x768/1604/Blue_lake_evening_pier-Nature_High_Quality_Wallpaper_1366x768.jpg" alt="Los Angeles">
+                        <img src="https://png.pngtree.com/background/20230317/original/pngtree-beautiful-night-background-meteor-picture-image_2148631.jpg" alt="Los Angeles">
                     </div>
 
                     <div class="item">
@@ -92,7 +92,7 @@
         </div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 " id="nav_header">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i> Home</a>
+                <a class="navbar-brand" style="padding-top: 8px;" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i> Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -112,30 +112,36 @@
                       
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="TimeSheet" asp-action="CheckIn"><i class="fa-solid fa-receipt"></i> Check In</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="TimeSheet" asp-action="Index"><i class="fa-regular fa-money-bill-1"></i> Check out</a>
-                            </li>
+                             var user = await UserManager.GetUserAsync(User);
+                            if (user != null && await UserManager.IsInRoleAsync(user, "Employee") || await UserManager.IsInRoleAsync(user, "Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TimeSheet" asp-action="CheckIn"><i class="fa-solid fa-receipt"></i> Check In</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TimeSheet" asp-action="Index"><i class="fa-regular fa-money-bill-1"></i> Check out</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Manage" asp-action="Index"><i class="fa-solid fa-list-check"></i> Tài Khoãn</a>
+                                </li>
+
+                            }
 
 
-                            var user = await UserManager.GetUserAsync(User);
+                          
                             if (user != null && await UserManager.IsInRoleAsync(user, "Admin"))
                             {
 
+                               
+
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Manage" asp-action="Index"><i class="fa-solid fa-list-check"></i> ManageUser</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index"><i class="fa-regular fa-user"></i> Thành Viên</a>
                                 </li>
 
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index"><i class="fa-regular fa-user"></i> Member</a>
-                                </li>
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index"><i class="fa-brands fa-critical-role"></i> Role</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index"><i class="fa-brands fa-critical-role"></i> Phân quyền</a>
                                 </li>
 
 

@@ -51,6 +51,7 @@ namespace MVCT.Controllers
         //
         // GET: /ManageUser/Index
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage)
         {
             var model = new UserListModel();
@@ -350,7 +351,14 @@ namespace MVCT.Controllers
                 return NotFound();
             }
 
+
             var result = await _userManager.DeleteAsync(user);
+            // xóa danh sách check in-out
+            List<Timesheets> ls = _context.Timesheets.Where(t => t.UserId == id).ToList();
+         
+            _context.Timesheets.RemoveRange(ls);
+            _context.SaveChanges();
+            
             if (result.Succeeded)
             {
                 return RedirectToAction("Index"); // Hoặc thực hiện các xử lý khác sau khi xóa thành công

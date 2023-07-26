@@ -22,6 +22,7 @@ using System.Security.Cryptography;
 
 namespace MVCT.Controllers
 {
+    [Authorize]
     public class TimeSheetController : Controller
     {
 
@@ -33,7 +34,7 @@ namespace MVCT.Controllers
             _context = context;
             _userManager = userManager;
         }
-
+        [Authorize(Roles = "Admin,Manager,Employee")]
         public async Task<IActionResult> CheckInAsync(DateTime dateCheckIn)
         {
             return View();
@@ -41,6 +42,7 @@ namespace MVCT.Controllers
 
         // hàm này để gửi yêu cầu check in bên button checkin
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager,Employee")]
         public async Task<IActionResult> CheckInForUserAsync(DateTime dateCheckIn)
         {
            // lấy user ra để check in cho nó
@@ -69,7 +71,8 @@ namespace MVCT.Controllers
             return   View("Checked");
         }
 
-
+        // hàm này show lịch sử check in-out
+        [Authorize(Roles = "Admin,Manager,Employee")]
         public async Task<IActionResult> IndexAsync()
         {
 
@@ -110,7 +113,7 @@ namespace MVCT.Controllers
                                                           checkIn.CreatedDate.Year == c.CreatedDate.Year);
                 if(check == null)
                 {
-                    return Content("Bạn chưa Check In");
+                    return View("CheckIn");
                 }
                 // niếu chưa dược duyệt thì có thể sửa
                 if (check.State != "No")
@@ -186,6 +189,7 @@ namespace MVCT.Controllers
 
 
         // lấy đám nhân viên của ngày đó để chấm công
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> ManageUserTimeSheets()
         {
             DateTime selectedDate = TempData.ContainsKey("SelectedDate") && TempData["SelectedDate"] is DateTime tempDate
@@ -344,6 +348,26 @@ namespace MVCT.Controllers
             return RedirectToAction("ManageUserTimeSheets");
         }
 
+
+        public IActionResult DeleteTimeSheet(int Id)
+        {
+            //return Content(Id.ToString());
+            try
+            {
+                Timesheets tmp = _context.Timesheets.Find(Id);
+                if (tmp != null)
+                {
+                    _context.Timesheets.Remove(tmp);
+                    _context.SaveChanges();
+                    return RedirectToAction("ManageUserTimeSheets");
+                }
+                return Content("lỗi xóa");
+            }
+            catch (Exception ex)
+            {
+                return Content("Lỗi" + ex.ToString());
+            }
+        }
     }
 
    

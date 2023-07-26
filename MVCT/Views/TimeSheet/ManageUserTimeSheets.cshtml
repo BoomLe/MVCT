@@ -21,12 +21,12 @@
     @*// hiển thị danh sách user checkin trong ngay*@
     <table class="table">
         <thead>
-            <tr>
+            <tr class="col-tittle-timesheet">
                 <th>Người Dùng</th>
                 <th>CheckIn</th>
 
                 <th>Giờ Đã làm</th>
-                <th>WorkingContent</th>
+                <th style="width: 256px;">WorkingContent</th>
                 <th>Trạng Thái Duyệt</th>
                 <th>Giờ Check In</th>
                 <th>Giờ Check Out</th>
@@ -57,7 +57,10 @@
                                 @(timekeeping.State == "Yes" ? "Bỏ duyệt" : "Duyệt")
                             </button>
                         </td>
-                        <td><i class="fa-regular fa-pen-to-square" onclick="showAlterTimeSheetBox(@timekeeping.Id)"></i></td>
+                        <td>
+                            <i class="fa-regular fa-pen-to-square" onclick="showAlterTimeSheetBox(@timekeeping.Id)"></i>
+                            <i class="fa-solid fa-trash" onclick="showDeleteTimeSheetBox(@timekeeping.Id)"></i>
+                            </td>
                     </tr>
                 }
             }
@@ -66,15 +69,31 @@
     <form id="alter-row-timesheet" asp-action="alterChangeTimeCheckInOut" class="alter-row-timesheet no-active-register-box">
      
         <div class="fade-register-box" onclick="showAlterTimeSheetBox()"></div>
-        <div class="context-fade-box">
+        <div class="context-fade-box change-timeCheckin-out-container">
             <label>Giờ check in</label>
             <input type="datetime-local" value="" id="selectedDateTime" name="dateCheckIn"  required>
             <label>Giờ check Out</label>
             <input type="datetime-local" value="" id="selectedDateTime" name="TimeCheckout"  required>
             <input style="display:none" type="text" value="3" id="Id-TimeSheet" name="Id" readonly>
 
-            <button type="submit">Yo</button>
+            <button class="enter-change-timesheet-btn" type="submit">Yo</button>
       
+        </div>
+    </form>
+
+    <form id="alter-delete" asp-action="DeleteTimeSheet" class="confirm-delete-timesheet confirm-delete-timesheet-container no-active-register-box">
+
+        <div class="fade-register-box"  onclick="showDeleteTimeSheetBox()"></div>
+        <div class="context-fade-box alter-confirm-delete" style="background-color:#fffa83">
+            <label>Bạn có xác nhận xóa</label>
+            <div class="contain-delete-confirm">
+                <button type="submit" style="background-color:#5df85d !important"><i class="fa-solid fa-check"></i></button>
+                <button type="button" style="background-color:red !important" onclick="showDeleteTimeSheetBox()"><i class="fa-solid fa-ban"></i></button>
+            </div>
+            <input style="display:none" type="text" value="3" id="confirm-delete-input" name="Id" readonly>
+
+         
+
         </div>
     </form>
     <!-- Trong View của bạn -->

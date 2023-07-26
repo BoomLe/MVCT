@@ -39,6 +39,7 @@ namespace MVCT.Controllers
         //
         // GET: /Manage/Index
         [HttpGet]
+        [Authorize(Roles = "Admin,Manager,Employee")]
         public async Task<IActionResult> Index(ManageMessageId? message = null)
         {
             ViewData["StatusMessage"] =

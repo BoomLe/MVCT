@@ -6,7 +6,7 @@
             <select id="month" name="month">
                 @for (int i = 1; i <= 12; i++)
                 {
-                    if (i == DateTime.Now.Month)
+                    if (i == Convert.ToInt32(ViewBag.MonthCurrentChoose ?? DateTime.Now.Month))
                     {
                         <option value="@i" selected>@i</option>
                     }
@@ -21,9 +21,9 @@
         <div>
             <label for="year">Năm:</label>
             <select id="year" name="year">
-                @for (int i = DateTime.Now.Year - 10; i <= DateTime.Now.Year + 10; i++)
+                @for (int i = DateTime.Now.Year; i <= DateTime.Now.Year + 10; i++)
                 {
-                    if (i == DateTime.Now.Year)
+                    if (i == Convert.ToInt32(ViewBag.YearCurrentChoose ?? DateTime.Now.Month))
                     {
                         <option value="@i" selected>@i</option>
                     }

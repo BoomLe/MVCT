@@ -1,4 +1,4 @@
-﻿@model RegisterViewModel
+﻿
 @using Microsoft.AspNetCore.Identity
 @using MVCT.Models
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpAccessor
@@ -7,13 +7,13 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
+@model RegisterViewModel
 
 
 
 <h1>Dang Vy Khoi Home</h1>
-
 <div>
-
+   
     @if (SignInManager.IsSignedIn(User))
     {
 
@@ -27,14 +27,16 @@
                     <button type="submit" class="btn btn-link navbar-btn navbar-link button-login-logout">Đăng xuất</button>
                 </li>
             </ul>
+            <div class="arrowToClick2" id="arrowToClick2" onclick="toggleElement2()"></div>
         </form>
 
     }
     else
     {
-        <div class="nav navbar-nav navbar-right box-login-logout">
+        <div class="nav navbar-nav navbar-right box-login-logout " id="toggleElement">
             <div> <a class="nav-link button-login-logout" onclick="showRegisterBox()">Đăng ký</a></div>
             <div> <a class="nav-link button-login-logout" asp-controller="Account" asp-action="Login">Đăng nhập</a></div>
+            <div id="arrowToClick" class="arrowToClick" onclick="toggleElement()"></div>
         </div>
 
 
@@ -46,10 +48,11 @@
 
 <div class="row register-container no-active-register-box" id="registerbox">
     <div class="fade-register-box" onclick="showRegisterBox()">khôi nè</div>
+  
     <div class="col-md-6">
         <section>
-            <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
-                <h4>Tạo tài khoản mới trên website.</h4>
+            <form  asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal form-register-container-box" role="form">
+                <h4>Đăng ký đi bạn ơi</h4>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -82,14 +85,14 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                        <button style="background-color: black;" type="submit" class="btn btn-primary btn-register-accept">Đăng ký</button>
                     </div>
                 </div>
             </form>
         </section>
     </div>
     <div class="col-md-6">
-        <img style="height:100%;width:100%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyMJ6hK3b3G8VSRf64O0d8IErofbBFCx51Ew&usqp=CAU" />
+        <img style="width:100%;border-radius:21px;margin-top: 65px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyMJ6hK3b3G8VSRf64O0d8IErofbBFCx51Ew&usqp=CAU" />
     </div>
 </div>
 

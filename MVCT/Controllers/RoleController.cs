@@ -45,6 +45,7 @@ namespace MVCT.Controllers
         //
         // GET: /Role/Index
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
 
