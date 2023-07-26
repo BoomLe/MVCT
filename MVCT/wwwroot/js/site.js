@@ -268,3 +268,20 @@ function toggleElement2() {
         arrow.style.marginLeft = "-102px"
     }
 }
+
+
+function setUpReponseRecaptcha() {
+    console.log("có vào")
+    var response = grecaptcha.getResponse();
+    console.log("mã recaptcha là ",response)
+}
+
+function recaptchaCallback(response) {
+    // Lưu giá trị response vào thẻ input
+    let rp = document.getElementById("ReponseCaptcha")
+    
+    rp.value = response;
+    console.log("mã capcha la", rp.value)
+    console.log("thẻ value", rp)
+
+}

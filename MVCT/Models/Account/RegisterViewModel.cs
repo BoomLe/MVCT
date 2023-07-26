@@ -38,5 +38,7 @@ namespace MVCT.Models.Account
 
         public string? returnUrl { get;set; }
 
+        public string ReponseCaptcha { get; set; }
+
     }
 }
