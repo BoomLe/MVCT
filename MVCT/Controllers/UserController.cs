@@ -73,6 +73,7 @@ namespace MVCT.Controllers
                         {
                             Id = u.Id,
                             UserName = u.UserName,
+                            Name = u.Name
                         });
 
             model.users = await qr1.ToListAsync();
@@ -81,6 +82,7 @@ namespace MVCT.Controllers
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 user.RoleNames = string.Join(",", roles);
+                //user.Name = ;
             }
 
             return View(model);

@@ -157,7 +157,7 @@ namespace MVCT.Controllers
                 {
                     if (model.UserName != null && model.Password != null && model.ConfirmPassword != null && model.Email != null)
                     {
-                        var user = new AppUser { UserName = model.UserName, Email = model.Email };
+                        var user = new AppUser { UserName = model.UserName, Email = model.Email,Name = model.Name };
                         var result = await _userManager.CreateAsync(user, model.Password);
 
                         if (result.Succeeded)

@@ -217,6 +217,7 @@ span.psw {
 }
 .form-timesheets{
     text-align: left;
+    position: relative;
 }
 
 .select-date-TimeKeeping {
@@ -450,7 +451,7 @@ span.psw {
 }
 .show-time-check-out {
     position: absolute;
-    right: 1.7%;
+    right: -50px;
     
 }
 .show-time-check-out > input {
@@ -547,4 +548,7 @@ span.psw {
 }
 .select-address-box{
     font-size:14px !important;
+}
+.footer-02 {
+    background-color: #e7e7e75c !important;
 }

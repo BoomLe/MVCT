@@ -15,7 +15,7 @@
     @foreach (var user in Model.users)
     {
         <tr>
-            <td>@user.UserName</td>
+            <td>@user.Name</td>
             <td>
                 @if (string.IsNullOrEmpty(user.RoleNames))
                 {

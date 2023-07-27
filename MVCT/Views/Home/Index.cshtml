@@ -21,7 +21,13 @@
         <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right box-login-logout">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <a class="nav-link button-login-logout" asp-controller="Manage" asp-action="Index" title="Manage">Xin chào @UserManager.GetUserName(User)!</a>
+                    @{
+                        var user = await UserManager.GetUserAsync(User);
+                        <a class="nav-link button-login-logout" asp-controller="Manage" asp-action="Index" title="Manage">@user.Name</a>
+
+                    }
+                    @*@*<a class="nav-link button-login-logout" asp-controller="Manage" asp-action="Index" title="Manage">Xin chào @UserManager.GetUserName(User)!</a>*@
+
                 </li>
                 <li class="nav-item">
                     <button type="submit" class="btn btn-link navbar-btn navbar-link button-login-logout">Đăng xuất</button>
@@ -55,6 +61,8 @@
                 <h4>Đăng ký đi bạn ơi</h4>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
                 <div class="form-group">
                     <label asp-for="UserName" class="col-md-10 control-label"></label>
                     <div class="col-md-10">
@@ -62,6 +70,15 @@
                         <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-md-10 control-label">Nhập tên</label>
+                    <div class="col-md-10">
+                        <input asp-for="Name" class="form-control" />
+                        @*<span class="text-danger">Nhập tên đúng vào</span>*@
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label asp-for="Email" class="col-md-10 control-label"></label>
                     <div class="col-md-10">

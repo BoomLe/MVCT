@@ -24,6 +24,8 @@ namespace MVCT.Models.Manage
 
         // attribute to show address
         public UserAddressDTO? [] Addresses { get; set; }
+        //
+        public string? Name { get; set; }
 
     }
 }

@@ -43,6 +43,8 @@ namespace MVCT.Models.Account
         public int? PlaceCityId { get; set; }
         public int? PlacedistrictId { get; set; }
 
+        public string? Name { get; set; }
+
 
 
     }

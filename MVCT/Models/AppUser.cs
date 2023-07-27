@@ -14,5 +14,10 @@ namespace MVCT.Models
           // [Required]       
           [DataType(DataType.Date)]
           public DateTime? BirthDate { get; set; }
+
+          public string? Name { get; set; }
     }
+
+
+
 }

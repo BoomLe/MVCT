@@ -71,7 +71,8 @@ namespace MVCT.Controllers
                     UserName = user.UserName,
                     UserEmail = user.Email,
                     PhoneNumber = user.PhoneNumber,
-                }
+                },
+                Name = user.Name
 
             };
             // lấy địa chỉ
