@@ -44,8 +44,7 @@ namespace MVCT.Controllers
 
         public IActionResult GetDataStatisticalCheckInOutOfMonth(int month, int year)
         {
-            // Do something with month and year
-            // Ví dụ: Truy vấn dữ liệu dựa trên tháng và năm đã chọn.
+           
             List<Timesheets> tsOfMonth = _context.Timesheets.Where(t => t.CreatedDate.Month == month
             && t.CreatedDate.Year == year).ToList();
 
@@ -65,14 +64,6 @@ namespace MVCT.Controllers
                 }    
             }
 
-            //return Content($"Tháng: {month}, Năm: {year}");
-            //var result = new
-            //{
-            //    passCheckOut = amountPass,
-            //    noPassCheckOut = amountFail
-            //};
-
-            //return Json(result);
             ViewBag.PassCheckOut = amountPass;
             ViewBag.NoPassCheckOut = amountFail;
 

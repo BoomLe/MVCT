@@ -68,15 +68,15 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active ">
-                        <img src="https://png.pngtree.com/background/20230317/original/pngtree-beautiful-night-background-meteor-picture-image_2148631.jpg" alt="Los Angeles">
+                        <img src="~/image/scr11.png" alt="Los Angeles">
                     </div>
 
                     <div class="item">
-                        <img src="https://www.10wallpaper.com/wallpaper/1366x768/1411/Night_Sky_With_Stars-Landscapes_HD_Wallpaper_1366x768.jpg" alt="Chicago">
+                        <img src="~/image/a6.png" alt="Chicago">
                     </div>
 
                     <div class="item">
-                        <img src="https://www.10wallpaper.com/wallpaper/1366x768/1604/Blue_lake_evening_pier-Nature_High_Quality_Wallpaper_1366x768.jpg" alt="New York">
+                        <img src="~/image/scr8.png" alt="New York">
                     </div>
                 </div>
 
@@ -116,14 +116,14 @@
                              var user = await UserManager.GetUserAsync(User);
                             if (user != null && await UserManager.IsInRoleAsync(user, "Employee") || await UserManager.IsInRoleAsync(user, "Admin"))
                             {
-                                <li class="nav-item">
+                                <li class="nav-item item-nav-header">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="TimeSheet" asp-action="CheckIn"><i class="fa-solid fa-receipt"></i> Check In</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item item-nav-header">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="TimeSheet" asp-action="Index"><i class="fa-regular fa-money-bill-1"></i> Check out</a>
                                 </li>
 
-                                <li class="nav-item">
+                                <li class="nav-item item-nav-header">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Manage" asp-action="Index"><i class="fa-solid fa-list-check"></i> Tài Khoãn</a>
                                 </li>
 
@@ -136,22 +136,22 @@
 
                                
 
-                                <li class="nav-item">
+                                <li class="nav-item item-nav-header">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index"><i class="fa-regular fa-user"></i> Thành Viên</a>
                                 </li>
 
 
-                                <li class="nav-item">
+                                <li class="nav-item item-nav-header">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index"><i class="fa-brands fa-critical-role"></i> Phân quyền</a>
                                 </li>
 
 
 
-                                <li class="nav-item">
+                                <li class="nav-item item-nav-header">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="TimeSheet" asp-action="ManageUserTimeSheets"><i class="fa-regular fa-calendar-days"></i> Chấm công cho nhân viên</a>
                                 </li>
 
-                                <li class="nav-item">
+                                <li class="nav-item item-nav-header">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Statistical" asp-action="Index"><i class="fa-solid fa-chart-pie"></i> Thống Kê</a>
                                 </li>
                             }

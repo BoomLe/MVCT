@@ -40,8 +40,7 @@ namespace MVCT.Controllers
             _context = context;
         }
 
-        //
-        // GET: /Manage/Index
+       
         [HttpGet]
         [Authorize(Roles = "Admin,Manager,Employee")]
         public async Task<IActionResult> Index(ManageMessageId? message = null)
@@ -115,16 +114,14 @@ namespace MVCT.Controllers
             return _userManager.GetUserAsync(HttpContext.User);
         }
 
-        //
-        // GET: /Manage/ChangePassword
+       
         [HttpGet]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/ChangePassword
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -148,16 +145,14 @@ namespace MVCT.Controllers
             }
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
-        //
-        // GET: /Manage/SetPassword
+       
         [HttpGet]
         public IActionResult SetPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/SetPassword
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SetPassword(SetPasswordViewModel model)
@@ -182,7 +177,7 @@ namespace MVCT.Controllers
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
-        //GET: /Manage/ManageLogins
+       
         [HttpGet]
         public async Task<IActionResult> ManageLogins(ManageMessageId? message = null)
         {
@@ -208,8 +203,7 @@ namespace MVCT.Controllers
         }
 
 
-        //
-        // POST: /Manage/LinkLogin
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult LinkLogin(string provider)
@@ -220,8 +214,7 @@ namespace MVCT.Controllers
             return Challenge(properties, provider);
         }
 
-        //
-        // GET: /Manage/LinkLoginCallback
+      
         [HttpGet]
         public async Task<ActionResult> LinkLoginCallback()
         {
@@ -241,8 +234,7 @@ namespace MVCT.Controllers
         }
 
 
-        //
-        // POST: /Manage/RemoveLogin
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel account)
@@ -260,15 +252,13 @@ namespace MVCT.Controllers
             }
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
-        //
-        // GET: /Manage/AddPhoneNumber
+     
         public IActionResult AddPhoneNumber()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/AddPhoneNumber
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
@@ -283,8 +273,7 @@ namespace MVCT.Controllers
             await _emailSender.SendSmsAsync(model.PhoneNumber, "Mã xác thực là: " + code);
             return RedirectToAction(nameof(VerifyPhoneNumber), new { model.PhoneNumber });
         }
-        //
-        // GET: /Manage/VerifyPhoneNumber
+       
         [HttpGet]
         public async Task<IActionResult> VerifyPhoneNumber(string phoneNumber)
         {
@@ -293,8 +282,7 @@ namespace MVCT.Controllers
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
-        //
-        // POST: /Manage/VerifyPhoneNumber
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
@@ -317,8 +305,7 @@ namespace MVCT.Controllers
             ModelState.AddModelError(string.Empty, "Lỗi thêm số điện thoại");
             return View(model);
         }
-        //
-        // GET: /Manage/RemovePhoneNumber
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemovePhoneNumber()
@@ -337,8 +324,7 @@ namespace MVCT.Controllers
         }
 
 
-        //
-        // POST: /Manage/EnableTwoFactorAuthentication
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EnableTwoFactorAuthentication()
@@ -352,8 +338,7 @@ namespace MVCT.Controllers
             return RedirectToAction(nameof(Index), "Manage");
         }
 
-        //
-        // POST: /Manage/DisableTwoFactorAuthentication
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DisableTwoFactorAuthentication()
@@ -367,8 +352,7 @@ namespace MVCT.Controllers
             }
             return RedirectToAction(nameof(Index), "Manage");
         }
-        //
-        // POST: /Manage/ResetAuthenticatorKey
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetAuthenticatorKey()
@@ -382,8 +366,7 @@ namespace MVCT.Controllers
             return RedirectToAction(nameof(Index), "Manage");
         }
 
-        //
-        // POST: /Manage/GenerateRecoveryCode
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GenerateRecoveryCode()

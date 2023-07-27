@@ -552,3 +552,15 @@ span.psw {
 .footer-02 {
     background-color: #e7e7e75c !important;
 }
+.item-nav-header {
+    transition: 0.5s;
+}
+.item-nav-header:hover {
+    /* background-color:black;
+color : white;*/
+    border-left-style: solid;
+    border-left-color: black !important;
+    border-right-style: solid;
+    border-right-color: black !important;
+    transition: 0.05s;
+}

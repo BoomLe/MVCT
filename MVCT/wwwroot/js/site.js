@@ -411,14 +411,14 @@ function validateFormRegister(event) {
     if (cityValue == '' || districtValue == '') {
         event.preventDefault();
         // Hiển thị thông báo hoặc thực hiện các hành động khác khi cần
-        alert('Please select both City and District.');
+        alert('Vui lòng chọn Tỉnh/Thành phố và Quận/Huyện');
         return false; // Ngăn form được submit nếu chưa chọn đủ giá trị
     }
 
     // check captcha
     if (!isRecaptchaConfirmed) {
         event.preventDefault();
-        alert('Please confirm reCAPTCHA before submitting the form.');
+        alert('Vui lòng xác thực captcha');
         return false; // Ngăn form được submit nếu chưa xác nhận reCAPTCHA
     }
 

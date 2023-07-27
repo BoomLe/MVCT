@@ -6,8 +6,8 @@ namespace MVCT.Models
 
     public class Timesheets
     {
-        [Key] // Đánh dấu thuộc tính là khóa chính
-        public int Id { get; set; } // Id sẽ được tự động tăng
+        [Key] 
+        public int Id { get; set; } 
 
         public string UserId { get; set; }
 

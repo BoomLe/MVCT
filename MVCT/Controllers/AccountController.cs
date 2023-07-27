@@ -50,7 +50,7 @@ namespace MVCT.Controllers
             _context = context;
         }
 
-        // GET: /Account/Login
+      
         [HttpGet("/login/")]  
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
@@ -59,8 +59,7 @@ namespace MVCT.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
+      
         [HttpPost("/login/")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -86,8 +85,7 @@ namespace MVCT.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    // mới
-                    //return Json(new { data = model, isSuccess = result.Succeeded });
+                   
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -107,13 +105,11 @@ namespace MVCT.Controllers
                 }
 
             }
-            // mới
-            //return Json(new { data = model, classofModel = model.GetType().Name, isValidform = ModelState.IsValid });
-
+          
             return View(model);
         }
 
-        // POST: /Account/LogOff
+        
         [HttpPost("/logout/")]
 
         [ValidateAntiForgeryToken]
@@ -123,8 +119,7 @@ namespace MVCT.Controllers
             _logger.LogInformation("User đăng xuất");
             return RedirectToAction("Index", "Home", new { area = "" });
         }
-        //
-        // GET: /Account/Register
+       
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
@@ -133,15 +128,12 @@ namespace MVCT.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-        //
-        // POST: /Account/Register
-        //[HttpPost("/register-acount/")]
+       
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model,string returnUrl)
         {
-            //return Ok(new { susccess = "test", content = "thành công rồi", Data = model });
-
+            
             try
             {
                 //data.ReponseCaptcha = "vykhoi";
@@ -236,7 +228,7 @@ namespace MVCT.Controllers
           
         }
 
-        // GET: /Account/ConfirmEmail
+       
         [HttpGet]
         [AllowAnonymous]
         public IActionResult RegisterConfirmation()
@@ -244,7 +236,7 @@ namespace MVCT.Controllers
             return View();
         }
 
-        // GET: /Account/ConfirmEmail
+       
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
@@ -263,8 +255,7 @@ namespace MVCT.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "ErrorConfirmEmail");
         }
 
-        //
-        // POST: /Account/ExternalLogin
+       
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -275,8 +266,7 @@ namespace MVCT.Controllers
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
-        //
-        // GET: /Account/ExternalLoginCallback
+        
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
@@ -321,8 +311,7 @@ namespace MVCT.Controllers
             }
         }
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
+       
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -369,11 +358,7 @@ namespace MVCT.Controllers
                     }
                     else
                     {
-                        // registeredUser = externalEmailUser (externalEmail != Input.Email)
-                        /*
-                            info => user1 (mail1@abc.com)
-                                 => user2 (mail2@abc.com)
-                        */
+                       
                         ModelState.AddModelError(string.Empty, "Không liên kết được tài khoản, hãy sử dụng email khác");
                         return View();
                     }
@@ -438,8 +423,7 @@ namespace MVCT.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ForgotPassword
+      
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPassword()
@@ -447,8 +431,7 @@ namespace MVCT.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
+       
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -483,8 +466,7 @@ namespace MVCT.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ForgotPasswordConfirmation
+       
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPasswordConfirmation()
@@ -492,8 +474,7 @@ namespace MVCT.Controllers
             return View();
         }
 
-        //
-        // GET: /Account/ResetPassword
+      
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
@@ -501,8 +482,7 @@ namespace MVCT.Controllers
             return code == null ? View("Error") : View();
         }
 
-        //
-        // POST: /Account/ResetPassword
+       
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -528,8 +508,7 @@ namespace MVCT.Controllers
             return View();
         }
 
-        //
-        // GET: /Account/ResetPasswordConfirmation
+      
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPasswordConfirmation()
@@ -537,8 +516,7 @@ namespace MVCT.Controllers
             return View();
         }
 
-        //
-        // GET: /Account/SendCode
+       
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl = null, bool rememberMe = false)
@@ -552,8 +530,7 @@ namespace MVCT.Controllers
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
-        //
-        // POST: /Account/SendCode
+     
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -594,8 +571,7 @@ namespace MVCT.Controllers
 
             return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
         }
-        //
-        // GET: /Account/VerifyCode
+       
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> VerifyCode(string provider, bool rememberMe, string returnUrl = null)
@@ -609,8 +585,7 @@ namespace MVCT.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
-        // POST: /Account/VerifyCode
+       
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -622,9 +597,7 @@ namespace MVCT.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes.
-            // If a user enters incorrect codes for a specified amount of time then the user account
-            // will be locked out for a specified amount of time.
+           
             var result = await _signInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
             if (result.Succeeded)
             {
@@ -642,8 +615,7 @@ namespace MVCT.Controllers
             }
         }
 
-        //
-        // GET: /Account/VerifyAuthenticatorCode
+       
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> VerifyAuthenticatorCode(bool rememberMe, string returnUrl = null)
@@ -657,8 +629,7 @@ namespace MVCT.Controllers
             return View(new VerifyAuthenticatorCodeViewModel { ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
-        // POST: /Account/VerifyAuthenticatorCode
+       
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -670,9 +641,7 @@ namespace MVCT.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes.
-            // If a user enters incorrect codes for a specified amount of time then the user account
-            // will be locked out for a specified amount of time.
+           
             var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(model.Code, model.RememberMe, model.RememberBrowser);
             if (result.Succeeded)
             {
@@ -689,8 +658,7 @@ namespace MVCT.Controllers
                 return View(model);
             }
         }
-        //
-        // GET: /Account/UseRecoveryCode
+       
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> UseRecoveryCode(string returnUrl = null)
@@ -704,8 +672,7 @@ namespace MVCT.Controllers
             return View(new UseRecoveryCodeViewModel { ReturnUrl = returnUrl });
         }
 
-        //
-        // POST: /Account/UseRecoveryCode
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

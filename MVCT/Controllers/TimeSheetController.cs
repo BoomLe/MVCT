@@ -87,11 +87,7 @@ namespace MVCT.Controllers
             .Where(t => t.UserId == currentUser.Id)
             .ToListAsync();
 
-
             ViewBag.Timekeepings = timekeepings;
-
-            //return View();
-
             return View(tmp);
         }
 
@@ -102,9 +98,6 @@ namespace MVCT.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            //int day = checkIn.CreatedDate.Day;      // Lấy ngày trong tháng (1-31)
-            //int month = checkIn.CreatedDate.Month;  // Lấy tháng trong năm (1-12)
-            //int year = checkIn.CreatedDate.Year;
             try
             {
                 Timesheets check = _context.Timesheets.FirstOrDefault(c => c.UserId == currentUser.Id &&
@@ -121,21 +114,10 @@ namespace MVCT.Controllers
                     return View("DenyCheckOut");
                 }
 
-                // cập nhật lại cái phiên làm viecj ngày hôm đó
+                // cập nhật lại cái phiên làm việc ngày hôm đó
               
                 check.WorkingContent = checkIn.WorkingContent;
                 check.TimeCheckout = checkIn.TimeCheckout;
-
-
-
-                // lứu số phút nó làm
-                //int totalMinutes = 0;
-                //TimeSpan? difference = check.TimeCheckout - check.CreatedDate;
-                //if (difference.HasValue)
-                //{
-                //   totalMinutes = (int)difference.Value.TotalMinutes;
-                //}
-
 
                 int totalMinutes = 0;
                 string time = "";
@@ -150,14 +132,8 @@ namespace MVCT.Controllers
 
 
                 check.TimeWork = time;
-
-
-            
-
-
                 _context.Update(check);
                 _context.SaveChanges();
-
 
                 return RedirectToAction("Index");
             }
@@ -167,10 +143,6 @@ namespace MVCT.Controllers
 
                 return Content("lỗi rồi" + ex);
             }
-            //string json = JsonConvert.SerializeObject(t);
-
-            //// Trả về chuỗi JSON trong phản hồi HTTP
-            //return Content(json, "application/json");
         }
         public string GetDistanceTwoDateTime(DateTime a, DateTime b)
         {
@@ -200,10 +172,7 @@ namespace MVCT.Controllers
                                                           selectedDate.Month == t.CreatedDate.Month &&
                                                           selectedDate.Year == t.CreatedDate.Year
                                                           && t.TimeWork != null).ToList();
-
-                //  lấy thêm tên của người ta nữa
-                //1 lấy ds user ứng với id đó thôi
-                //= _userManager.Users.ToList();
+     
                 List<AppUser> users = new List<AppUser>();
                 foreach (Timesheets t in Timekeepings)
                 {
@@ -226,7 +195,7 @@ namespace MVCT.Controllers
                             TimeSheetsDTO tmp = new TimeSheetsDTO()
                             {
                                 Id = t.Id,
-                                UserName = userNameDTO,
+                                UserName = user.Name,
                                 CheckIn = (bool)t.CheckIn,
                                 WorkingContent = t.WorkingContent,
                                 CreatedDate = t.CreatedDate,
@@ -253,19 +222,8 @@ namespace MVCT.Controllers
                 var currentUser = await _userManager.GetUserAsync(HttpContext.User);
                 ViewBag.managerCheckOut = currentUser.Id;
                 ViewBag.selectedDate = selectedDate;
-            //return View();
-
-            return View(tmp2);
-
-
-                //string json = JsonConvert.SerializeObject(listUsersCheckIn);
-
-                //// Trả về chuỗi JSON trong phản hồi HTTP
-                //return Content(json, "application/json");
-                ////return View(selectedDate);
             
-
-            //return View();
+            return View(tmp2);              
         }
 
 
@@ -286,8 +244,7 @@ namespace MVCT.Controllers
             List<int> highlightedCheckout = data.highlightedCheckout;
             DateTime date = data.date;
             string idManagerChectOut = data.idManagerCheckOut;
-            // Xử lý danh sách id nhận được từ fetch
-            // ...
+           
             List<Timesheets> ls = new List<Timesheets>();
             foreach (int i in highlightedCheckout)
             {
@@ -297,26 +254,21 @@ namespace MVCT.Controllers
                 {
                     if (tmp.State == "Yes")
                     {
-                        tmp.State = "No"; // Sử dụng toán tử gán (=) thay vì toán tử so sánh (==)
+                        tmp.State = "No"; 
                         tmp.UserCheckId = null;
                     }
                     else
                     {
-                        tmp.State = "Yes"; // Sử dụng toán tử gán (=) thay vì toán tử so sánh (==)
+                        tmp.State = "Yes"; 
                         tmp.UserCheckId = idManagerChectOut;
                     }
                 }
                 _context.Timesheets.Update(tmp);
                 _context.SaveChanges();
             }
-            //have list time sheet to update yes
+           
 
-            return Json(new { Success = true, Message = "Gửi dữ liệu thành công!" });
-            //return Json(data);
-
-
-            // khong làm như vầy được vì mình gọi js
-            //return RedirectToAction("GetUsersTimeKeeping",date);
+            return Json(new { Success = true, Message = "Gửi dữ liệu thành công!" });          
         }
 
         public IActionResult alterChangeTimeCheckInOut(AlterTimeSheet data)
@@ -351,7 +303,7 @@ namespace MVCT.Controllers
 
         public IActionResult DeleteTimeSheet(int Id)
         {
-            //return Content(Id.ToString());
+            
             try
             {
                 Timesheets tmp = _context.Timesheets.Find(Id);

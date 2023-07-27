@@ -22,8 +22,9 @@
     <table class="table">
         <thead>
             <tr class="col-tittle-timesheet">
-                <th>Người Dùng</th>
-                <th>CheckIn</th>
+             
+                <th style="width: 176px;">Người Dùng</th>
+                @*<th>CheckIn</th>*@
 
                 <th>Giờ Đã làm</th>
                 <th style="width: 256px;">WorkingContent</th>
@@ -43,8 +44,10 @@
                 foreach (var timekeeping in ViewBag.listUsersCheckIn)
                 {
                     <tr id="@timekeeping.Id" class="line-user-chetout @(timekeeping.State == "Yes" ? "line-user-chetout-yes" : "line-user-chetout-no")">
+                        
+
                         <td>@timekeeping.UserName</td>
-                        <td>@(timekeeping.CheckIn ? "Đã Check in" : "Chưa Check in")</td>
+                        @*<td>@(timekeeping.CheckIn ? "Đã Check in" : "Chưa Check in")</td>*@
                         <td>@timekeeping.TimeWork</td>
                         <td>@timekeeping.WorkingContent</td>
                         <td>@timekeeping.State</td>

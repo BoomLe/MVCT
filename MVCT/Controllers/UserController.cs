@@ -20,8 +20,7 @@ using Microsoft.Extensions.Logging;
 using MVCT.Models.User;
 
 namespace MVCT.Controllers
-{
-    // chỉ cho admin truy cập 
+{  
     //[Authorize(Roles = RoleName.Administrator)]
 
     [Authorize]
@@ -48,8 +47,7 @@ namespace MVCT.Controllers
         [TempData]
         public string StatusMessage { get; set; }
 
-        //
-        // GET: /ManageUser/Index
+       
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage)
@@ -82,17 +80,17 @@ namespace MVCT.Controllers
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 user.RoleNames = string.Join(",", roles);
-                //user.Name = ;
+               
             }
 
             return View(model);
         }
 
-        // GET: /ManageUser/AddRole/id
+       
         [HttpGet("{id}")]
         public async Task<IActionResult> AddRoleAsync(string id)
         {
-            // public SelectList allRoles { get; set; }
+          
             var model = new AddUserRoleModel();
             if (string.IsNullOrEmpty(id))
             {
@@ -116,7 +114,7 @@ namespace MVCT.Controllers
             return View(model);
         }
 
-        // GET: /ManageUser/AddRole/id
+       
         [HttpPost("{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddRoleAsync(string id, [Bind("RoleNames")] AddUserRoleModel model)
@@ -345,8 +343,7 @@ namespace MVCT.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            // Thực hiện logic xóa người dùng với ID tương ứng
-            // ...
+           
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
@@ -363,15 +360,13 @@ namespace MVCT.Controllers
             
             if (result.Succeeded)
             {
-                return RedirectToAction("Index"); // Hoặc thực hiện các xử lý khác sau khi xóa thành công
+                return RedirectToAction("Index"); 
             }
             else
-            {
-                // Xử lý lỗi nếu không thể xóa người dùng
-                // ...
+            {             
                 return View("Error");
             }
-            //return Content("<h1> đã vào  </h1>");
+          
         }
 
     }
