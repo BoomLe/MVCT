@@ -24,5 +24,9 @@ namespace MVCT.Data
         }
 
         public DbSet<Timesheets> Timesheets { get; set; }
+        public DbSet<Address> Addresses{ get; set; }
+        public DbSet<UserAddress> UserAddresses { get; set; }
+
+
     }
 }

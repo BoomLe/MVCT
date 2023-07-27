@@ -74,6 +74,8 @@
                     <th>Giờ Đã làm</th>
                     <th style="width: 407px;">WorkingContent</th>
                     <th>Trạng Thái Duyệt</th>
+                    <th>Ngày</th>
+
                     <th>Giờ Check In</th>
                     <th>Giờ Check Out</th>
 
@@ -91,6 +93,7 @@
                             <td>@timekeeping.TimeWork</td>
                             <td>@timekeeping.WorkingContent</td>
                             <td>@timekeeping.State</td>
+                            <td>@timekeeping.CreatedDate.ToString("dd/MM/yyyy")</td>
                             <td>@timekeeping.CreatedDate.ToString("HH:mm:ss")</td>
                             <td>@(timekeeping.TimeCheckout != null ? timekeeping.TimeCheckout.ToString("HH:mm:ss") : "")</td>
 

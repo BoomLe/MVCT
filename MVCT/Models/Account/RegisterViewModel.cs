@@ -40,5 +40,10 @@ namespace MVCT.Models.Account
 
         public string ReponseCaptcha { get; set; }
 
+        public int? PlaceCityId { get; set; }
+        public int? PlacedistrictId { get; set; }
+
+
+
     }
 }

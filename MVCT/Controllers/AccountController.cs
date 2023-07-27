@@ -22,6 +22,7 @@ using static SkiaSharp.HarfBuzz.SKShaper;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using MVCT.Data;
 
 namespace MVCT.Controllers
 {
@@ -30,6 +31,7 @@ namespace MVCT.Controllers
     [Route("/Account/[action]")]
     public class AccountController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -39,12 +41,13 @@ namespace MVCT.Controllers
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         // GET: /Account/Login
@@ -185,7 +188,17 @@ namespace MVCT.Controllers
 
                             if (_userManager.Options.SignIn.RequireConfirmedAccount)
                             {
+                                // thêm địa chỉ cho nó
+                                UserAddress ua = new UserAddress();
+                                ua.IdUser = user.Id;
+                                ua.IdCity = (int)model.PlaceCityId;
+                                ua.IdDistrict = (int)model.PlacedistrictId;
+                                _context.UserAddresses.Add(ua);
+                                _context.SaveChanges();
+
                                 return LocalRedirect(Url.Action(nameof(RegisterConfirmation)));
+
+
                             }
                             else
                             {
@@ -193,6 +206,8 @@ namespace MVCT.Controllers
                                 return LocalRedirect(model.returnUrl);
                             }
 
+
+                           
                         }
 
                         ModelState.AddModelError(result);

@@ -10,7 +10,7 @@
 }
 
 <h1>@ViewData["Title"].</h1>*@
-<div class="container container-login">
+<div class="container container-login container-login-style">
 
     @*// form origin of UI razor*@
     <form class="login-form" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
@@ -29,7 +29,7 @@
                 <!-- User Name -->
                 <div class="form-item" id="form-item-username" placeholder="Email or User..." onclick="highlightInput(this)">
                     <i class="fa-solid fa-user"></i>
-                    <input class="login-input" asp-for="UserNameOrEmail" id="userName" style="border: none !important;outline: none !important;" />
+                    <input placeholder="Nhập UserName" class="login-input" asp-for="UserNameOrEmail" id="userName" style="border: none !important;outline: none !important;" />
                     @*<input type="text" id="userName" placeholder="E-mail address" name="uname">*@
                 </div>
 
@@ -37,7 +37,7 @@
                 <!-- Password -->
                 <div style="margin-bottom: 10px;" class="form-item" id="form-item-password" placeholder="Password..." onclick="highlightInput(this)">
                     <i class="fa-solid fa-lock"></i>
-                    <input class="login-input" asp-for="Password" id="passWord" />
+                    <input placeholder="Nhập Password" class="login-input" asp-for="Password" id="passWord" />
                     @*<input type="password" id="passWord" placeholder="Password" name="psw">*@
                 </div>
 

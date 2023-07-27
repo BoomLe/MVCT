@@ -29,10 +29,14 @@ body {
 }
 
 .login-form {
-    width: 40%;
+    width: 100%;
     padding: 10px;
     border-radius: 5px;
     /* position: relative; */
+}
+.container-login-style {
+    width: 43% !important;
+    margin: 0 !important;
 }
 
 input[type=text], input[type=password] {
@@ -529,4 +533,18 @@ span.psw {
 #logoutForm {
     margin-left: -200px;
     transition:1s;
+}
+.form-group {
+    margin-bottom: 4px !important;
+    /*background-color: red;*/
+}
+.select-addAddress-container{
+    display:flex;
+    margin-left:-16px !important;
+}
+.select-addAddress-container > .form-group{
+    flex:50%;
+}
+.select-address-box{
+    font-size:14px !important;
 }

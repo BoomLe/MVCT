@@ -269,6 +269,7 @@ function toggleElement2() {
     }
 }
 
+let isRecaptchaConfirmed = false;
 
 function setUpReponseRecaptcha() {
     console.log("có vào")
@@ -281,7 +282,187 @@ function recaptchaCallback(response) {
     let rp = document.getElementById("ReponseCaptcha")
     
     rp.value = response;
+    isRecaptchaConfirmed = true;
     console.log("mã capcha la", rp.value)
     console.log("thẻ value", rp)
 
 }
+
+
+
+/// gọi lấy address
+// Hàm để thực hiện yêu cầu khi trang web vừa tải lên
+var listPlace;
+function selectCity(id) {
+    let boxCity = document.getElementById("PlacedistrictId");
+    boxCity.innerHTML = "";
+    console.log(boxCity);
+    console.log("danh sách",listPlace);
+
+    for (let i = 0; i < listPlace.length; i++) {
+        if (listPlace[i].dependId == id) {
+
+            console.log("có vào", listPlace[i].dependId,id )
+            let option = document.createElement("option");
+            option.value = listPlace[i].id;
+            option.text = listPlace[i].place;
+
+            boxCity.appendChild(option);
+        }
+    }
+    console.log(id);
+}
+
+function getDataOnPageLoad() {
+    fetch('/Address/GetAddress/') // Thay thế '/api/endpoint' bằng URL của endpoint backend của bạn
+        .then(response => response.json())
+        .then(data => {
+            console.log('Data từ backend:', data);
+            listPlace = data;
+
+            let boxCity = document.getElementById("PlaceCityId");
+            boxCity.innerHTML = "";
+            boxCity.innerHTML = '<option value="">-- Chọn tỉnh/thành phố --</option>';
+            for (let i = 0; i < listPlace.length; i++) {
+                if (listPlace[i].dependId === 0) {
+                    let option = document.createElement("option");
+                    option.value = listPlace[i].id;
+                    option.text = listPlace[i].place;
+
+                    boxCity.appendChild(option);
+                }
+            }
+           
+            // Gán sự kiện change cho combobox
+            boxCity.addEventListener("change", function () {
+                let selectedOption = boxCity.options[boxCity.selectedIndex];
+                if (selectedOption !== null) {
+                    selectCity(selectedOption.value); // Gọi hàm selectCity với giá trị id của tùy chọn
+                }
+            });
+        })
+        .catch(error => {
+            // Xử lý lỗi nếu có
+            console.error('Error:', error);
+        });
+}
+// Gọi hàm getDataOnPageLoad() khi trang web đã được tải lên hoàn toàn
+document.addEventListener('DOMContentLoaded', getDataOnPageLoad);
+
+
+function addAddressForUser() {
+    let idUser = document.getElementById("idUserAddAddress").value
+    let idCity = document.getElementById("PlaceCityId").value
+    let idDistrict = document.getElementById("PlacedistrictId").value
+
+
+
+
+    const dataToSend = {
+        IdUser: idUser,
+        IdCity: idCity,
+        IdDistrict: idDistrict
+    };
+
+    fetch('/Member/AddressForUser/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataToSend)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.json(); // Chuyển đổi response thành JSON và trả về promise
+        })
+        .then(dataFromServer => {
+            // Xử lý dữ liệu từ backend ở đây
+            console.log('Data from server:', dataFromServer);
+            // Bạn có thể sử dụng dữ liệu từ server trong hàm này
+            if (dataFromServer.succcess) {
+                // Nếu dữ liệu được xử lý thành công trên server, reload lại trang web
+                location.reload();
+            } else {
+                // Xử lý trường hợp dữ liệu không thành công nếu cần
+            }
+        })
+        .catch(error => {
+            // Xử lý lỗi kết nối hoặc response lỗi
+            console.error('Error:', error);
+        });
+
+}
+
+function validateFormRegister(event) {
+
+    //event.preventDefault();
+
+   
+    // check select 
+    const selectCity = document.getElementById('PlaceCityId');
+    const selectDistrict = document.getElementById('PlacedistrictId');
+
+    const cityValue = selectCity.value;
+    const districtValue = selectDistrict.value;
+
+    console.log("có chạy vô hàm", cityValue, districtValue)
+    if (cityValue == '' || districtValue == '') {
+        event.preventDefault();
+        // Hiển thị thông báo hoặc thực hiện các hành động khác khi cần
+        alert('Please select both City and District.');
+        return false; // Ngăn form được submit nếu chưa chọn đủ giá trị
+    }
+
+    // check captcha
+    if (!isRecaptchaConfirmed) {
+        event.preventDefault();
+        alert('Please confirm reCAPTCHA before submitting the form.');
+        return false; // Ngăn form được submit nếu chưa xác nhận reCAPTCHA
+    }
+
+    // Nếu cả hai thẻ đã chọn đủ giá trị, cho phép form được submit
+    return true;
+}
+//Trong hàm validateForm(), chúng ta kiểm tra giá trị của cả hai thẻ < select >.Nếu một trong hai thẻ chưa có giá trị được chọn, chúng ta hiển thị thông báo và trả về false, điều này sẽ ngăn form được submit.Nếu cả hai thẻ đã chọn đủ giá trị, chúng ta trả về true, cho phép form được submit.
+
+function deleteUserAddress(Id) {
+    console.log(Id)
+    //const dataToSend = { "Id: Id };
+
+    fetch('/Member/DeleteUserAddress/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: Id 
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.json(); // Chuyển đổi response thành JSON và trả về promise
+        })
+        .then(dataFromServer => {
+            // Xử lý dữ liệu từ backend ở đây
+            console.log('Data from server:', dataFromServer);
+            // Bạn có thể sử dụng dữ liệu từ server trong hàm này
+            if (dataFromServer.succcess) {
+                // Nếu dữ liệu được xử lý thành công trên server, reload lại trang web
+                location.reload();
+            } else {
+                // Xử lý trường hợp dữ liệu không thành công nếu cần
+            }
+        })
+        .catch(error => {
+            // Xử lý lỗi kết nối hoặc response lỗi
+            console.error('Error:', error);
+        });
+}
+
+
+
+
+
+

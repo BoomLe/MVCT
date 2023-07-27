@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVCT.Data;
 using MVCT.Models;
 using MVCT.Models.Account;
 using System.Diagnostics;
@@ -9,17 +10,16 @@ namespace MVCT.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private readonly ApplicationDbContext _context;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+           
         }
 
         public IActionResult Index()
         {
-            // moới thêm
-            //RegisterViewModel tmp = new RegisterViewModel();
-            //return View(tmp);
+            // get city and district trà
             return View();
         }
 

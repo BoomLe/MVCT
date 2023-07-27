@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVCT.Models.Manage;
+using MVCT.Data;
+using MVCT.DTO;
 
 namespace MVCT.Controllers
 {
@@ -23,17 +25,19 @@ namespace MVCT.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ManageController> _logger;
-
+        private readonly ApplicationDbContext _context;
         public ManageController(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
         IEmailSender emailSender,
-        ILogger<ManageController> logger)
+        ILogger<ManageController> logger,
+        ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         //
@@ -68,7 +72,30 @@ namespace MVCT.Controllers
                     UserEmail = user.Email,
                     PhoneNumber = user.PhoneNumber,
                 }
+
             };
+            // lấy địa chỉ
+          List<UserAddress> ls = _context.UserAddresses.Where(u => u.IdUser == user.Id).ToList();
+          List<UserAddressDTO> userAddresses = new List<UserAddressDTO>();
+            // lấy tên các địa chỉ
+            foreach (var item in ls)
+            {
+                UserAddressDTO tmp = new UserAddressDTO();
+                tmp.Id = item.Id;
+                tmp.IdUser = item.IdUser;
+                tmp.IdCity = item.IdCity;
+                tmp.IdDistrict = item.IdDistrict;
+
+                // lấy name thành phố 
+                Address tmpC = _context.Addresses.Find(item.IdCity);
+                tmp.NameCity = tmpC.Place;
+                // lấy name huyện
+                Address tmpD = _context.Addresses.Find(item.IdDistrict);
+                tmp.NameDistrict = tmpD.Place;
+
+                userAddresses.Add(tmp);
+            }
+              ViewBag.UserAddresses = userAddresses;
             return View(model);
         }
         public enum ManageMessageId
@@ -399,6 +426,44 @@ namespace MVCT.Controllers
 
         }
 
+        public IActionResult AddressForUser([FromBody] AddAddressUserDTO data )
+        {
+         
+            try
+            {
+                if (data == null)
+                {
+                    return Json(new { succcess = false });
+                }
+                UserAddress tmp = new UserAddress();
+                tmp.IdUser = data.IdUser;
+                tmp.IdCity = data.IdCity;
+                tmp.IdDistrict = data.IdDistrict;
 
+                _context.UserAddresses.Add(tmp);
+                _context.SaveChanges();
+                return Json(new { succcess = true, data = data });
+            }catch(Exception ex)
+            {
+                return Json(new { succcess = false, data = data,ex = ex });
+
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteUserAddress([FromBody] int Id)
+        {
+            UserAddress tmp = _context.UserAddresses.Find(Id);
+            if (tmp == null)
+            {
+                return NotFound();
+            }    
+            _context.Remove(tmp);
+            _context.SaveChanges();
+
+            return Json(new { succcess = true, data = Id });
+
+
+        }
     }
 }

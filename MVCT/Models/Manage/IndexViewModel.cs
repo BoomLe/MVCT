@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
+using MVCT.DTO;
 
 namespace MVCT.Models.Manage
 {
@@ -20,5 +21,9 @@ namespace MVCT.Models.Manage
         public bool BrowserRemembered { get; set; }
 
         public string AuthenticatorKey { get; set; }
+
+        // attribute to show address
+        public UserAddressDTO? [] Addresses { get; set; }
+
     }
 }
