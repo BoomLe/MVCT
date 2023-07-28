@@ -11,15 +11,19 @@
 
 
 
-<h1>Dang Vy Khoi Home</h1>
-<h1>Dang Vy Khoi Home</h1>
-<h1>Dang Vy Khoi Home</h1>
-<h1>Dang Vy Khoi Home</h1>
-<h1>Dang Vy Khoi Home</h1>
-<h1>Dang Vy Khoi Home</h1>
-<h1>Dang Vy Khoi Home</h1>
-<h1>Dang Vy Khoi Home</h1>
-<h1>Dang Vy Khoi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+<h1>Đặng Vỹ Khôi Home</h1>
+
 
 <div>
    
@@ -60,10 +64,10 @@
 </div>
 
 @*// phần mới thêm (register)*@
-
+@*class="row register-container no-active-register-box"*@
 <div class="row register-container no-active-register-box" id="registerbox">
     <div class="fade-register-box" onclick="showRegisterBox()">khôi nè</div>
-    <form onsubmit="validateFormRegister(event)" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal form-register-container-box" role="form">
+  @*  <form onsubmit="validateFormRegister(event)" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal form-register-container-box" role="form">
 
         <div class="col-md-6">
         <section>
@@ -84,7 +88,7 @@
                     <label class="col-md-10 control-label">Nhập tên</label>
                     <div class="col-md-10">
                         <input asp-for="Name" class="form-control" />
-                        @*<span class="text-danger">Nhập tên đúng vào</span>*@
+                    
                     </div>
                 </div>
 
@@ -114,7 +118,7 @@
                     </div>
                 </div>
 
-                @*select city *@
+             
                 <div class="form-group" style="width: 130%;">
                     <label class="col-md-10 control-label">City </label>
                     <div class="col-md-10">
@@ -125,7 +129,7 @@
                         </select>
                     </div>
                 </div>
-                @*select district*@
+              
                 <div class="form-group" style="width: 130%;">
                     <label class="col-md-10 control-label">District </label>
                     <div class="col-md-10">
@@ -161,6 +165,83 @@
                 </div>
             </div>
     </form>
+*@
+    <div class="wrapper register-parent-container" style="background-image: url('images/bg-registration-form-1.jpg');">
+        <div class="inner">
+            <div class="image-holder">
+                <img src="~/image/fujiko.jpg" alt="">
+            </div>
+            <form onsubmit="validateFormRegister(event)" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" role="form">
+                @*<h3>Registration Form</h3>*@
+
+                <div class="form-wrapper">
+                    <input asp-for="Name" placeholder="Tên của bạn" class="form-control" />
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+
+                <div class="form-wrapper">
+                    <input asp-for="UserName" placeholder="Tên tài khoản" class="form-control" />
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+
+
+                <div class="form-group">
+
+                    <input type="text" asp-for="Password" placeholder="Mật khẩu" class="form-control">
+                    <input type="text" asp-for="ConfirmPassword" placeholder="Nhập lại mật khẩu" class="form-control">
+                </div>
+
+                <div class="form-wrapper">
+                    <input type="text" asp-for="Email" placeholder="Email" class="form-control">
+                    <i class="zmdi zmdi-email"></i>
+                </div>
+                <input type="hidden" asp-for="ReponseCaptcha" />
+                @* <div class="form-wrapper">
+                <select name="" id="" class="form-control">
+                <option value="" disabled selected>Gender</option>
+                <option value="male">Male</option>
+                <option value="femal">Female</option>
+                <option value="other">Other</option>
+                </select>
+                <i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+                </div>*@
+
+                @*// dia chi*@
+                @*select city *@
+                <div class="form-wrapper">
+                    <select asp-for="PlaceCityId" class="form-control" style="font-size: 13px;">
+                        <option value="">-- Chọn tỉnh/thành phố --</option>
+                    </select>
+                </div>
+                @*select district*@
+                <div class="form-wrapper">
+                    <select asp-for="PlacedistrictId" class="form-control" style="font-size: 13px;">
+                        <option value="">-- Chọn Quận/huyện --</option>
+                    </select>
+                </div>
+
+
+                @*/////////////////*@
+                <div class="form-wrapper">
+                    <div class="recaptcha-container-all" onclick="setUpReponseRecaptcha()">
+                        <div class="g-recaptcha" data-type="image" data-sitekey="6LcaTzQnAAAAAG2mi1ZAlRw6zN5ITIzQLA3T_4Yp" name="g-recaptcha-response" data-callback="recaptchaCallback"> </div>
+
+                    </div>
+                </div>
+                @*  <div class="form-wrapper">
+                <input type="password" placeholder="Confirm Password" class="form-control">
+                <i class="zmdi zmdi-lock"></i>
+                </div>*@
+                <button style="margin-top: 5px;">
+                    Register
+                    <i class="zmdi zmdi-arrow-right"></i>
+                </button>
+            </form>
+
+
+        </div>
+    </div>
+
 </div>
 
 
