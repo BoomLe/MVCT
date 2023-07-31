@@ -206,7 +206,7 @@ namespace MVCT.Controllers
                     }
 
                    
-                    return View(model);
+                    return View("Error");
                 }
 
                 return Ok(new { susccess = success, content = "Captcha không hợp lệ" });

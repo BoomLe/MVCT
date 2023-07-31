@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Home";
+}
 @using Microsoft.AspNetCore.Identity
 @using MVCT.Models
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpAccessor
@@ -63,157 +65,46 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 </div>
 
-@*// phần mới thêm (register)*@
-@*class="row register-container no-active-register-box"*@
 <div class="row register-container no-active-register-box" id="registerbox">
     <div class="fade-register-box" onclick="showRegisterBox()">khôi nè</div>
-  @*  <form onsubmit="validateFormRegister(event)" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal form-register-container-box" role="form">
 
-        <div class="col-md-6">
-        <section>
-                <h4>Đăng ký đi bạn ơi</h4>
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-
-                <div class="form-group">
-                    <label asp-for="UserName" class="col-md-10 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="UserName" class="form-control" />
-                        <span asp-validation-for="UserName" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-10 control-label">Nhập tên</label>
-                    <div class="col-md-10">
-                        <input asp-for="Name" class="form-control" />
-                    
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Email" class="col-md-10 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="col-md-10 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="Password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="ConfirmPassword" class="col-md-10 control-label"></label>
-                    <div class="col-md-10">
-
-                        <input asp-for="ConfirmPassword" class="form-control" />
-
-                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                        <input type="hidden" asp-for="ReponseCaptcha" />
-                    </div>
-                </div>
-
-             
-                <div class="form-group" style="width: 130%;">
-                    <label class="col-md-10 control-label">City </label>
-                    <div class="col-md-10">
-                        <select asp-for="PlaceCityId" class="form-control">
-                            <option value="">-- Select a City --</option>
-                          
-                            <!-- Thêm các tùy chọn cho các thành phố khác nếu cần -->
-                        </select>
-                    </div>
-                </div>
-              
-                <div class="form-group" style="width: 130%;">
-                    <label class="col-md-10 control-label">District </label>
-                    <div class="col-md-10">
-                        <select asp-for="PlacedistrictId" class="form-control">
-                            <option value="">-- Select a City --</option>
-
-                            <!-- Thêm các tùy chọn cho các thành phố khác nếu cần -->
-                        </select>
-                    </div>
-                </div>
-             
-
-
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button style="background-color: black;" type="submit" class="btn btn-primary btn-register-accept">Đăng ký</button>
-                    </div>
-                </div>
-              
-               
-           
-        </section>
-    </div>
-            <div class="col-md-6">
-                <div class="form-group" style="margin-bottom:5px;">
-                <img style="width:95%;border-radius:21px;margin-top: 65px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyMJ6hK3b3G8VSRf64O0d8IErofbBFCx51Ew&usqp=CAU" />
-               </div>
-
-                <div class="recaptcha-container-all" onclick="setUpReponseRecaptcha()">
-                    <div class="g-recaptcha" data-type="image" data-sitekey="6LcaTzQnAAAAAG2mi1ZAlRw6zN5ITIzQLA3T_4Yp" name="g-recaptcha-response" data-callback="recaptchaCallback"> </div>
-
-                </div>
-            </div>
-    </form>
-*@
     <div class="wrapper register-parent-container" style="background-image: url('images/bg-registration-form-1.jpg');">
         <div class="inner">
             <div class="image-holder">
                 <img src="~/image/fujiko.jpg" alt="">
             </div>
-            <form onsubmit="validateFormRegister(event)" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" role="form">
-                @*<h3>Registration Form</h3>*@
+            <form onsubmit="validateFormRegister(event)" id="register-box-parent" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" role="form">
+           
 
                 <div class="form-wrapper">
-                    <input asp-for="Name" placeholder="Tên của bạn" class="form-control" />
+                    <input onfocus="onInputFocus(this)" onblur="onInputFocus(this)" asp-for="Name" placeholder="Tên của bạn" class="form-control" />
                     <i class="zmdi zmdi-account"></i>
                 </div>
 
                 <div class="form-wrapper">
-                    <input asp-for="UserName" placeholder="Tên tài khoản" class="form-control" />
+                    <input onfocus="onInputFocus(this)" onblur="onInputFocus(this)" asp-for="UserName" placeholder="Tên tài khoản" class="form-control" />
                     <i class="zmdi zmdi-account"></i>
                 </div>
 
 
                 <div class="form-group">
 
-                    <input type="text" asp-for="Password" placeholder="Mật khẩu" class="form-control">
-                    <input type="text" asp-for="ConfirmPassword" placeholder="Nhập lại mật khẩu" class="form-control">
+                    <input onfocus="onInputFocus(this)" onblur="onInputFocus(this)" type="text" asp-for="Password" placeholder="Mật khẩu" class="form-control">
+                    <input onfocus="onInputFocus(this)" onblur="onInputFocus(this)" type="text" asp-for="ConfirmPassword" placeholder="Nhập lại mật khẩu" class="form-control">
                 </div>
 
                 <div class="form-wrapper">
-                    <input type="text" asp-for="Email" placeholder="Email" class="form-control">
+                    <input onfocus="onInputFocus(this)" onblur="onInputFocus(this)" type="text" asp-for="Email" placeholder="Email" class="form-control">
                     <i class="zmdi zmdi-email"></i>
                 </div>
                 <input type="hidden" asp-for="ReponseCaptcha" />
-                @* <div class="form-wrapper">
-                <select name="" id="" class="form-control">
-                <option value="" disabled selected>Gender</option>
-                <option value="male">Male</option>
-                <option value="femal">Female</option>
-                <option value="other">Other</option>
-                </select>
-                <i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
-                </div>*@
-
-                @*// dia chi*@
-                @*select city *@
+             
                 <div class="form-wrapper">
                     <select asp-for="PlaceCityId" class="form-control" style="font-size: 13px;">
                         <option value="">-- Chọn tỉnh/thành phố --</option>
                     </select>
                 </div>
-                @*select district*@
+          
                 <div class="form-wrapper">
                     <select asp-for="PlacedistrictId" class="form-control" style="font-size: 13px;">
                         <option value="">-- Chọn Quận/huyện --</option>
@@ -221,18 +112,15 @@
                 </div>
 
 
-                @*/////////////////*@
+          
                 <div class="form-wrapper">
                     <div class="recaptcha-container-all" onclick="setUpReponseRecaptcha()">
                         <div class="g-recaptcha" data-type="image" data-sitekey="6LcaTzQnAAAAAG2mi1ZAlRw6zN5ITIzQLA3T_4Yp" name="g-recaptcha-response" data-callback="recaptchaCallback"> </div>
 
                     </div>
                 </div>
-                @*  <div class="form-wrapper">
-                <input type="password" placeholder="Confirm Password" class="form-control">
-                <i class="zmdi zmdi-lock"></i>
-                </div>*@
-                <button style="margin-top: 5px;">
+              
+                <button type="submit" value="Register" style="margin-top: 5px;">
                     Register
                     <i class="zmdi zmdi-arrow-right"></i>
                 </button>

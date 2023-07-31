@@ -205,10 +205,10 @@ span.psw {
 
 
 .box-main {
-    background-color: #8ffffc;
+    background-color: #f7f7f7;
     position: initial;
-    left:0;
-    margin-bottom:20px;
+    left: 0;
+    margin-bottom: 20px;
 }
 .box-list-timesheets {
     margin-top: 10px;
@@ -237,11 +237,14 @@ span.psw {
 }
 .line-user-chetout {
     background-color: teal;
-    font-size: 1.3vw;
+    /*font-size: 1.3vw;*/
     color: white;
+    text-align: left;
 }
 .line-user-chetout-yes {
-    background-color: #067a39;
+    background-color: #82ff85;
+    color: black;
+}
 }
 .line-user-chetout-no {
     background-color: #5e5e5e;
@@ -409,11 +412,11 @@ span.psw {
     padding-left : 10px;
 }
 #alter-delete {
-    position: fixed;
+ /*   position: fixed;
     top: 14%;
-    left: 40%;
+    left: 40%;*/
     display: flex;
-    border-radius: 12px;
+    /*border-radius: 12px;*/
     overflow: hidden;
 }
 .contain-delete-confirm {
@@ -472,6 +475,7 @@ span.psw {
 .col-tittle-timesheet {
     background-color: black;
     color: white;
+    text-align:left;
 }
 .col-tittle-timesheet th{
     border-right-style:solid;
@@ -577,4 +581,28 @@ color : white;*/
 }
 .register-parent-container{
     padding-top:0px
+}
+
+.Footer-list-timesheet {
+    position: relative;
+    right: -288px;
+}
+.box-change-time{
+    text-align:left;
+    margin-bottom:10px;
+}
+.button-function-container{
+    display:flex;
+}
+.button-function-container button {
+    padding: 0;
+    margin-right: 2px;
+    height: 22px;
+}
+
+
+.button-function-container button > i {
+padding: 0;
+margin: 0;
+margin-right: 0;
 }

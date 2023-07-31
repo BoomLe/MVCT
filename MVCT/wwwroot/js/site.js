@@ -209,15 +209,7 @@ function showAlterTimeSheetBox(id) {
     let idTimeSheet = document.getElementById("Id-TimeSheet");
     idTimeSheet.value = id
 
-    console.log("co vao")
-    // Toggle class "active" cho "registerbox"
-    if (registerBox.classList.contains("active-register-box")) {
-        registerBox.classList.remove("active-register-box");
-        registerBox.classList.add("no-active-register-box");
-    } else {
-        registerBox.classList.add("active-register-box");
-        registerBox.classList.remove("no-active-register-box");
-    }
+   
 }
 
 function showDeleteTimeSheetBox(id) {
@@ -225,15 +217,7 @@ function showDeleteTimeSheetBox(id) {
     let idTimeSheet = document.getElementById("confirm-delete-input");
     idTimeSheet.value = id
 
-    console.log("co vao")
-    // Toggle class "active" cho "registerbox"
-    if (registerBox.classList.contains("active-register-box")) {
-        registerBox.classList.remove("active-register-box");
-        registerBox.classList.add("no-active-register-box");
-    } else {
-        registerBox.classList.add("active-register-box");
-        registerBox.classList.remove("no-active-register-box");
-    }
+ 
 }
 
 function toggleElement() {
@@ -249,7 +233,9 @@ function toggleElement() {
 
     } else {
         element.style.marginLeft = "10px";
-        arrow.style.marginLeft = "-23px"
+        arrow.style.marginLeft = "-34px";
+        arrow.style.marginTop = "-6px";
+
     }
 }
 function toggleElement2() {
@@ -394,11 +380,28 @@ function addAddressForUser() {
         });
 
 }
+function onInputFocus(input) {
+    input.setAttribute('placeholder', input.getAttribute('placeholder').replace(' (Required)', ''));
+    input.style.borderBottom = "1px solid black";
+    //input.style.borderBottom = "2px solid red";
 
+}
 function validateFormRegister(event) {
+    //id = "register-box-parent" 
+    ////event.preventDefault();
+    const inputs = document.getElementById('register-box-parent');
 
-    //event.preventDefault();
+    for (const input of inputs) {
+        console.log("thanh phan ", input.value)
+        if (input.value == '') {
+            console.log("thanh phan ",input.value)
+            const placeholder = input.getAttribute('placeholder');
+            input.setAttribute('placeholder', `${placeholder}`);
+            input.style.borderBottom = "2px solid red";
 
+            event.preventDefault(); // Ngăn form được submit nếu có trường chưa nhập đủ
+        }
+    }
    
     // check select 
     const selectCity = document.getElementById('PlaceCityId');
@@ -461,6 +464,14 @@ function deleteUserAddress(Id) {
         });
 }
 
+
+
+
+
+
+/// fix pop up
+var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
 
 
 

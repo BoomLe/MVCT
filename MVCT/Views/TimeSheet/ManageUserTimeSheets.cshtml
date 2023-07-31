@@ -18,35 +18,35 @@
     {
         <p style="text-align: left;">Ngày đã chọn: @selectedDate.ToString("dd/MM/yyyy")</p>
     }
-    @*// hiển thị danh sách user checkin trong ngay*@
-    <table class="table">
+
+
+    @*//////tbale dạng mới*@
+    <table class="ui celled padded table">
         <thead>
-            <tr class="col-tittle-timesheet">
-             
-                <th style="width: 176px;">Người Dùng</th>
-                @*<th>CheckIn</th>*@
+            <tr>
+                <th class="single line">Họ và tên</th>
+                <th class="single line">Trạng thái duyệt</th>
+                <th class="single line">Nội dung làm</th>
+           
+                <th class="single line">Giờ đã làm</th>
 
-                <th>Giờ Đã làm</th>
-                <th style="width: 256px;">WorkingContent</th>
-                <th>Trạng Thái Duyệt</th>
-                <th>Giờ Check In</th>
-                <th>Giờ Check Out</th>
-
-                <th>Duyệt</th>
-                <th>Chỉnh sửa</th>
-
+                <th class="single line">Giờ check in</th>
+                <th class="single line">Giờ check out</th>
+                <th class="single line">Duyệt</th>
+                <th class="single line">Chỉnh sửa</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Hiển thị danh sách timekeepings -->
+
+
             @if (ViewBag.listUsersCheckIn != null)
             {
                 foreach (var timekeeping in ViewBag.listUsersCheckIn)
                 {
                     <tr id="@timekeeping.Id" class="line-user-chetout @(timekeeping.State == "Yes" ? "line-user-chetout-yes" : "line-user-chetout-no")">
-                        
 
-                        <td>@timekeeping.UserName</td>
+
+                        <td class="single line">@timekeeping.UserName</td>
                         @*<td>@(timekeeping.CheckIn ? "Đã Check in" : "Chưa Check in")</td>*@
                         <td>@timekeeping.TimeWork</td>
                         <td>@timekeeping.WorkingContent</td>
@@ -55,35 +55,145 @@
                         <td>@(timekeeping.TimeCheckout != null ? timekeeping.TimeCheckout.ToString("HH:mm:ss") : "")</td>
 
 
-                        <td>
+                        <td class="single line">
                             <button class="accept-checkout" onclick="hightLight(@timekeeping.Id)">
                                 @(timekeeping.State == "Yes" ? "Bỏ duyệt" : "Duyệt")
                             </button>
                         </td>
-                        <td>
-                            <i class="fa-regular fa-pen-to-square" onclick="showAlterTimeSheetBox(@timekeeping.Id)"></i>
-                            <i class="fa-solid fa-trash" onclick="showDeleteTimeSheetBox(@timekeeping.Id)"></i>
-                            </td>
+                        <td class="button-function-container">
+                            <button onclick="showAlterTimeSheetBox(@timekeeping.Id)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                                @*onclick="showAlterTimeSheetBox(@timekeeping.Id)"*@
+                                <i  class="fa-regular fa-pen-to-square"></i>
+                            </button>
+
+                            <button onclick="showDeleteTimeSheetBox(@timekeeping.Id)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete">
+                                <i class="fa-solid fa-trash" ></i>
+                            </button>
+
+                         
+                        </td>
                     </tr>
                 }
             }
+         
+          
+
         </tbody>
+
+
+        <tfoot class="Footer-list-timesheet">
+            <tr>
+                <th colspan="5">
+                    <div class="ui right floated pagination menu">
+                        <a class="icon item">
+                            <i class="left chevron icon"></i>
+                        </a>
+                        <a class="item">1</a>
+                        <a class="item">2</a>
+                        <a class="item">3</a>
+                        <a class="item">4</a>
+                        <a class="icon item">
+                            <i class="right chevron icon"></i>
+                        </a>
+                    </div>
+                </th>
+            </tr>
+        </tfoot>
     </table>
-    <form id="alter-row-timesheet" asp-action="alterChangeTimeCheckInOut" class="alter-row-timesheet no-active-register-box">
-     
-        <div class="fade-register-box" onclick="showAlterTimeSheetBox()"></div>
-        <div class="context-fade-box change-timeCheckin-out-container">
-            <label>Giờ check in</label>
-            <input type="datetime-local" value="" id="selectedDateTime" name="dateCheckIn"  required>
-            <label>Giờ check Out</label>
-            <input type="datetime-local" value="" id="selectedDateTime" name="TimeCheckout"  required>
-            <input style="display:none" type="text" value="3" id="Id-TimeSheet" name="Id" readonly>
 
-            <button class="enter-change-timesheet-btn" type="submit">Yo</button>
-      
+
+
+    <!-- The Modal change time -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thay Đổi Giờ CheckIn - CheckOut</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    @*id="alter-row-timesheet"*@
+                    @*class="alter-row-timesheet"*@
+                    <form  asp-action="alterChangeTimeCheckInOut" >
+
+                        @*<div class="fade-register-box" onclick="showAlterTimeSheetBox()"></div>*@
+                       @* <div@* class="context-fade-box change-timeCheckin-out-container"*@
+                         <div class="box-change-time">
+                            <label>Giờ check in</label>
+                            <input style="width:100%;" type="datetime-local" value="" id="selectedDateTime" name="dateCheckIn" required>
+                        </div>
+                        <div class="box-change-time">
+                            <label>Giờ check out</label>
+                            <input style="width:100%;" type="datetime-local" value="" id="selectedDateTime" name="TimeCheckout" required>
+                            <input style="display:none" type="text" value="3" id="Id-TimeSheet" name="Id" readonly>
+                        </div>
+                            @*<button class="enter-change-timesheet-btn" type="submit">Yo</button>*@
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" >OKE</button>
+                        </div>
+                      @*  </div>*@
+                    </form>
+                </div>
+
+            @*    <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+*@
+            </div>
         </div>
-    </form>
+    </div>
 
+
+
+    <!-- The Modal confrm delete -->
+    <div class="modal" id="modal-confirm-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Cảnh Báo</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h2>Bạn có xác nhận xóa</h2>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer confirm-delete-box">
+
+                    <form id="alter-delete" asp-action="DeleteTimeSheet" >
+
+                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal"><i style="margin:0;" class="fa-solid fa-check"></i></button>
+
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i style="margin:0;" class="fa-solid fa-ban"></i></button>
+                        <input style="display:none" type="text" value="3" id="confirm-delete-input" name="Id" readonly>
+
+@*
+                        <button type="submit" style="background-color:#5df85d !important"></button>
+                        <button type="button" style="background-color:red !important" onclick="showDeleteTimeSheetBox()"></button>
+                         *@ 
+
+
+
+                      
+                    </form>
+                 
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+@*
     <form id="alter-delete" asp-action="DeleteTimeSheet" class="confirm-delete-timesheet confirm-delete-timesheet-container no-active-register-box">
 
         <div class="fade-register-box"  onclick="showDeleteTimeSheetBox()"></div>
@@ -98,9 +208,12 @@
          
 
         </div>
-    </form>
+    </form>*@
     <!-- Trong View của bạn -->
-    <button onclick="saveListAcceptCheckout('@ViewBag.managerCheckOut')">Oke Lưu Luôn</button>
+    <button style="width: 8%;position: relative;right: -516px;" type="button" onclick="saveListAcceptCheckout('@ViewBag.managerCheckOut')" class="btn btn-success">
+        Lưu
+    </button>
+    @*<button onclick="saveListAcceptCheckout('@ViewBag.managerCheckOut')">Oke Lưu Luôn</button>*@
     @*<button onclick="saveListAcceptCheckout()">Oke Lưu Luôn</button>*@
 
    
